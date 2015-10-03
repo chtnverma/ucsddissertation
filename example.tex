@@ -9,8 +9,46 @@
 \usepackage{booktabs}
 \usepackage{ragged2e}
 \usepackage{microtype}
-\usepackage[breaklinks=true,pdfborder={0 0 0}]{hyperref}
 \usepackage{graphicx}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{amsmath} 
+\usepackage{amsthm,amssymb}
+%\usepackage[subfigure]{tocloft} 
+%\usepackage{subfigure} 
+\usepackage{color,caption}
+\usepackage[hyphens]{url}
+\usepackage[breaklinks=true,pdfborder={0 0 0}]{hyperref}
+\usepackage{epsfig} 
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
+
+%% Yahoo -- begin
+\newtheorem{definition}{Definition}
+\usepackage[mathscr]{euscript}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{subcaption}
+%\usepackage{epstopdf}
+\usepackage{soul}
+\usepackage{caption}
+\renewcommand{\hl}{}
+%% Yahoo -- end 
+
+
+%% Symantec -- begin 
+%\usepackage{algorithmic}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{pifont}
+\usepackage{tabto}
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\codecomment}{\textbackslash \textbackslash}
+\DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+
+%% Symantec -- end
+
 \AtBeginDocument{%
 	\settowidth\cvlabelwidth{\cvlabelfont 0000--0000}%
 }
@@ -22,25 +60,25 @@
 \usepackage{trace}
 %\usepackage{showframe} % This package was just to see page margins
 \usepackage[english]{babel}
+\newcommand{\comment}[1]{}
 \usepackage{blindtext}
 \overfullrule5pt
 % ---
 
 % Required information
-\title{This is the Title of My Dissertation}
-\author{My Full Legal Name}
-\degree{My Degree Title}{Doctor of Philosophy/Doctor of Musical
-Arts/\par Doctor of Education}
+\title{Enabling Automated and Efficient Personalization Systems}
+\author{Chetan Kumar Verma}
+\degree{Electrical and Computer Engineering (Computer Engineering)}{Doctor of Philosophy}
 % Each member of the committee should be listed as Professor Foo Bar.
 % If Professor is not the correct title for one, then titles should be
 % omitted entirely.
-\chair{Professor Eta Theta}
-\cochair{Professor Gamma Delta} % Optional
+\chair{Professor Sujit Dey}
 % Your committee members (other than the chairs) must be in alphabetical order
-\committee{Professor Lambda Kappa}
-\committee{Professor Iota Mu}
-\committee{Professor Epsilon Zeta}
-\degreeyear{2014}
+\committee{Professor David Kriegman}
+\committee{Professor Lawrence Saul}
+\committee{Professor Truong Nguyen}
+\committee{Professor Vikash Gilja}
+\degreeyear{2015}
 
 % Start the document
 \begin{document}
@@ -54,18 +92,11 @@ Arts/\par Doctor of Education}
 \setsinglespacing
 \raggedright % It would be better to use \RaggedRight from ragged2e
 \parindent0pt\parskip\baselineskip
-In recognition of reading this manual before beginning to format the
-doctoral dissertation or master's thesis; for following the
-instructions written herein; for consulting with OGS Academic Affairs
-Advisers; and for not relying on other completed manuscripts, this
-manual is dedicated to all graduate students about to complete the
-doctoral dissertation or master's thesis.
-
-In recognition that this is my one chance to use whichever
-justification, spacing, writing style, text size, and/or textfont that
-I want to while still keeping my headings and margins consistent.
+\centering
+To mom and dad 
 \end{dedication}
 % Optional
+\comment{
 \begin{epigraph}
 \vskip0pt plus.5fil
 \setsinglespacing
@@ -97,6 +128,7 @@ good enough writer he must face eternity, or the lack of it, each day.
 
 \vfil
 \end{epigraph}
+}
 
 % Next comes the table of contents, list of figures, list of tables,
 % etc. If you have code listings, you can use \listoflistings (or
@@ -107,24 +139,33 @@ good enough writer he must face eternity, or the lack of it, each day.
 \listoftables
 
 % Preface
+\comment{
 \begin{preface}
 Almost nothing is said in the manual about the preface. There is no
 indication about how it is to be typeset. Given that, one is forced to
 simply typeset it and hope it is accepted. It is, however, optional
 and may be omitted.
 \end{preface}
+}
 
 % Your fancy acks here. Keep in mind you need to ack each paper you
 % use. See the examples here. In addition, each chapter ack needs to
 % be repeated at the end of the relevant chapter.
 \begin{acknowledgements}
-I would like to acknowledge Professor Eta Theta for his support as the
-chair of my committee. Through multiple drafts and many long nights,
-his guidance has proved to be invaluable.
 
-I would also like to acknowledge the ``Smith Clan'' of lab~28, without
-whom my research would have no doubt taken fives times as long. It is
-their support that helped me in an immeasureable way.
+
+This dissertation would not have been possible without the help and support of my family, friends, colleagues and mentors. I would like to take this opportunity to thank them. 
+
+
+First, I would like to thank Prof. Sujit Dey for patience to train me to think and write with clarity. This has helped me not only in my research and technical writing, but also in other aspects of my life. 
+
+My parents have been the cornerstone of my education and career through their unconditional and selfless support. I would like to thank them for being extremely patient even though they didn’t always understand my opinions and decisions. This achievement is as much mine as it is theirs. 
+
+I would also like to thank Sandeep Bhatkar, Michael Hart, Vijay Mahadevan, Nikhil Rasiwasia, Gaurav Aggarwal for mentoring me during internships. My internships have facilitated a good chunk of my learning and the contribution of my mentors has been significant. I would like to thank Nitesh Shroff for doubling up as a friend and mentor when I needed the help. 
+
+Graduate school has been a fun and learning experience for me. I would like to thank my friends Kritika, Bharathan, Rishi, Manish, Ravee, Sumit, and many others for making the journey enjoyable. It would have been much less exciting if I did not have them to pour my heart out. My labmates especially Yao, Jason, Po-Han, Ranjini, Ali have also been helpful in keeping my sanity over the past six years.  
+
+Lastly, I would also like to thank my friends from IIT Madras. They have been my constant support and have somehow been able to understand what I have intended to say. 
 
 Chapter 2, in full, is a reprint of the material as it appears in
 Numerical Grid Generational in Computational Fluid Mechanics~2009.
@@ -147,22 +188,41 @@ material.
 \noindent
 \begin{cv}{}
 \begin{cvlist}{}
-\item[1996] Bachelor of Arts, University of California, Berkeley
-\item[1996--2000] U.S. Marines
-\item[2000--2002] Teaching Assistant, Department of Mechanical
-Engineering\\University of California, San Diego
-\item[2002--2006] Research Assistant, University of California, San
-Diego
-\item[2010] Doctor of Philosophy, University of California, San Diego
+\item[2008] Bachelor of Technology, \\Electrical Enginering, \\Indian Institute of Technology, Madras 
+\item[2011] Master of Science, \\Electrical and Computer Engineering(Computer Engineering), \\University of California, San Diego 
+\item[2010--2015] Graduate Student Researcher, \\Mobile Systems Design Lab, \\Department of Electrical and Computer Engineering, \\University of California, San Diego
+\item[2011--2015]  Doctor of Philosophy, \\Department of Electrical and Computer Engineering, \\University of California, San Diego
 \end{cvlist}
 \end{cv}
 
 % This puts in the PUBLICATIONS header. Note that it appears inside
 % the vita environment. It is optional.
 \publications
-\noindent``Distributions of Control Points in a System for Analysis of Stress
-Distribution'' IRE Transactions of the I.R.E\@. Professional Group on
-Automatic Control, vol. AC-7, pp 272--289, September 2005
+{\justify
+\noindent\textbf{Journals} \\ \\
+\noindent \textbf{C. Verma}, S. Dey, ``Methods to Obtain Training Videos for Fully Automated Application-Specific Classification'', IEEE Access, vol. 3, pp 1188-1205, 2015. \\
+
+\noindent \textbf{C. Verma}, V. Mahadevan, N. Rasiwasia, G. Aggarwal, R. Kant, A. Jaimes, S. Dey, ``Construction and Evaluation of Ontological Tag Trees'', Elsevier Expert Systems and Applications, vol. 42 (24), pp 9587-9602, 2015. \\
+
+\noindent \textbf{C. Verma}, M. Hart, S. Bhatkar, A. Parker-Wood, S. Dey, ``Improving Scalability of Personalized Recommendation Systems for Enterprise Knowledge Workers'', Under review. \\
+
+\noindent \textbf{C. Verma}, B. R. Tamma, B. S. Manoj, R. Rao, ``A Realistic Small-World Model for Wireless Mesh Networks'', IEEE Communication Letters, vol. 15 (4), pp 455-457, 2011. \\
+
+\noindent\textbf{Conferences} \\ \\
+\noindent \textbf{C. Verma}, M. Hart, S. Bhatkar, A. Parker-Wood, S. Dey, ``Access Prediction for Knowledge Workers in Enterprise Data Repositories'', International Conference on Enterprise Information Systems (ICEIS), 2015. [\textbf{Nominated for best student paper award}] \\
+
+\noindent B. Balaji, \textbf{C. Verma}, B. Narayanaswamy, Y. Agarwal, ``Zodiac: Organizing Large Deployment of Sensors to Create Reusable Applications for HVAC Management'', ACM International Conference on Embedded Systems For Energy-Efficient Built Environments (BuildSys), 2015. \\
+
+\noindent \textbf{C. Verma}, V. Mahadevan, N. Rasiwasia, G. Aggarwal, R. Kant, A. Jaimes, S. Dey, ``Construction of Tag Ontological Graphs by Locally Minimizing Weighted Average Hops'', ACM World Wide Web (WWW poster), 2014. \\ 
+
+
+\noindent \textbf{C. Verma}, S. Dey, ``Fully Automated Learning for Application-Specific Web Video Classification'', IEEE/WIC/ACM International Conference on Web Intelligence (WI), 2013. \\ 
+
+\noindent A. Verma, \textbf{C. Verma}, B. R. Tamma, B. S. Manoj, R. Rao, ``New Link Addition Strategies for Multi-Gateway Small World Wireless Mesh Networks'', IEEE Advanced Networks and  Telecommunication Systems (ANTS), 2010. 
+
+}
+
+\comment{
 
 % This puts in the FIELDS OF STUDY. Also inside vita and also
 % optional.
@@ -177,6 +237,8 @@ Professors Epsilon Zeta and Eta Theta
 \vskip\baselineskip
 Studies in Electromagnetism\par
 Professors Iota Kappa and Lambda Mu
+
+}
 \end{vita}
 
 % Put your maximum 350 word abstract here.
@@ -203,194 +265,21 @@ like an ordinary chapter. It should appear after the
 \verb!\mainmatter! macro because it should start on page~1.
 \end{dissertationintroduction}
 
-\chapter{An ordinary page}
-The purpose of this page is to illustrate an ordinary page of text in
-a doctoral dissertation or master's thesis. All pages of the doctoral
-dissertation or master's thesis must be kept within the margins of
-1.5'' on the left, 1'' on the right, 1'' on the top and 1.25'' on the
-bottom. All text must be double spaced except as indicated below.
+\chapter{Methods to Obtain Training Data for Fully Automated Application-Specific Classification}
+\input{TrainingData/mainfile.tex}
 
-It is recommended that to increase the margins as paper can shift in a
-printer and as some photocopiers tend to increase the image being
-copied.
 
-The first line of each paragraph must be indented at least one 0.5''
-tab, as done here.
+\chapter{Construction and Evaluation of Ontological Tag Trees}
+\input{TagTree/mainfile.tex}
 
-This text is intended to be a part of the dissertation, for a doctoral
-student, or the thesis if you are receiving a master's degree, and now
-a quote is included here:
-\begin{quote}
-All quotes of more than six lines, even though this one is not, are to
-be indented 0.5'' from the left and 0.5'' from the right. These longer
-quotes are to be single spaced. Don't forget to adjust for proper
-spacing after the last line of the quoted material.
-\end{quote}
-The rest of the paragraph would continue as so.
 
-\chapter{Figures and Such}
-This demonstrates how OGS wants figures and tables formatted. For
-figures, the caption goes below the figure and ``Figure'' is in bold.
-See Figure~\ref{fig:zen}. Tables are formatted with the caption above
-the table. See Table~\ref{tab:bad}.
+\chapter{Improving Scalability of Personalized Recommendation Systems for Enterprise Knowledge Workers}
+\input{FileAccess/mainfile.tex}
 
-Of course, Table~\ref{tab:bad} looks horrible. It should probably be
-formatted like Table~\ref{tab:good} instead.
-
-For facing caption pages, see Table~\ref{tab:facing}. Of course,
-facing caption pages are vaguely ridiculous and my implementation of
-them in the class file is by far the most brittle part of the
-implementation. It's entirely possible that something has changed and
-these don't work at all. I implemented it merely for the challenge.
-
-\begin{figure}
-\centering
-\fbox{\parbox{.9\linewidth}{%
-	\noindent
-	{\Huge PHD ZEN}\par
-	\vskip.5in
-	\centerline{comic here}
-	\vskip.5in
-}}
-\caption[``Ph.D. Zen'']{Comic entitled ``Ph.D. Zen'' by Jorge Cham, 2005. Copyright
-has not been obtained and so it isn't displayed.}
-\label{fig:zen}
-\end{figure}
-
-\begin{table}
-\centering
-\caption[Electronic Dissertation Submission Rates]{Electronic
-Dissertation Submission Rates at UCSD, Fall 2005 and Winter 2006.
-(First two quarters that the program was available to all Ph.D.
-candidates not in a Joint Doctoral Program with SDSU.)}
-\label{tab:bad}
-\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{.15\linewidth}|}}
-\hline
-&Ph.D.s awarded (Including Joint degrees) & Electronic submission of
-Dissertation & Paper Submission of Dissertation & Percentage of
-Electronic Submission\\
-\hline
-Fall\par 2005 & 84 & 37 & 47 & 44.05\%\\
-\hline
-Winter\par 2006 & 64 & 42 & 22 & 65.63\%\\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{table}
-\centering
-\caption[Electronic Dissertation Submission Rates]{Electronic
-Dissertation Submission Rates at UCSD, Fall 2005 and Winter 2006.
-(First two quarters that the program was available to all Ph.D.
-candidates not in a Joint Doctoral Program with SDSU.)}
-\label{tab:good}
-\renewcommand\tabularxcolumn[1]{>{\RaggedRight\arraybackslash}p{#1}}
-\begin{tabularx}{.9\linewidth}{lcccc}
-\toprule
-&\multicolumn{1}{X}{Ph.D.s awarded (Including Joint degrees)}
-&\multicolumn{1}{X}{Electronic submission of Dissertation}
-&\multicolumn{1}{X}{Paper Submission of Dissertation}
-&\multicolumn{1}{X}{Percentage of Electronic Submission}\\
-\midrule
-Fall 2005 & 84 & 37 & 47 & 44.05\%\\
-Winter 2006 & 64 & 42 & 22 & 65.63\%\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\begin{facingcaption}{table}
-\caption[UCSD Gender Distribution]{University of
-California, San Diego Gender Distribution for the Campus Population,
-October~2005\\
-(http://assp.ucsd.edu/analytical/Campus\%20Population.shtml)\\
-\emph{(This is an example of a facing caption page, the next page is
-the example of the table/figure/etc.\ that corresponds to this
-caption. It is also an example of table/figure that is rotated 90
-degrees to fit the page.)}}
-\label{tab:facing}
-\renewcommand\tabularxcolumn[1]{>{\RaggedLeft\arraybackslash}p{#1}}
-\parindent=0pt
-\setbox0=\vbox{%
-\vsize\textwidth
-\hsize\textheight
-\linewidth\hsize
-\columnwidth\hsize
-\textwidth\hsize
-\textheight\vsize
-\begin{tabularx}{\linewidth}{lXXXXXX}
-\toprule
-& \multicolumn{2}{c}{\textbf{Women}}
-& \multicolumn{2}{c}{\textbf{Men}}
-& \multicolumn{2}{c}{\textbf{Total}}\\
-\cmidrule(l){2-3}\cmidrule(l){4-5}\cmidrule(l){6-7}
-\textbf{Population Segment}
-& \multicolumn{1}{c}{\textbf{N}} & \multicolumn{1}{c}{\textbf{\%}}
-& \multicolumn{1}{c}{\textbf{N}} & \multicolumn{1}{c}{\textbf{\%}}
-& \multicolumn{1}{c}{\textbf{N}} & \multicolumn{1}{c}{\textbf{\%}}\\
-\midrule
-Students & 12,987 & 51\% & 12,686 & 49\% & 25,673 & 100\%\\
-Employees & 9,943 & 56\% &  7,671 & 44\% & 17,614 & 100\%\\
-\addlinespace
-\hfill\textbf{Total} & \textbf{22,930} & \textbf{53\%} &
-\textbf{20,357} & \textbf{47\%} & \textbf{43,287} & \textbf{100\%}\\
-\bottomrule
-\end{tabularx}
-\singlespacing
-
-\emph{Notes}:
-\begin{enumerate}
-\item The counts shown below will differ from the official quarterly
-Registrar's registration report because 1) data for residents in the
-Schools of Medicine and Pharmacy and Pharmaceutical Science are
-excluded, and 2) registered, non-matriculated, visiting students are
-included.
-\item Student workers are excluded from employees; however emeritus
-faculty and others on recall status are included.
-\end{enumerate}
-
-Campus Planning. Analytical Studies and Space Planning\\
-31 January 2006
-}
-\centerline{\rotatebox{90}{\box0}}
-\end{facingcaption}
-
-% This will give us some more text
-\Blinddocument
-
-% Skipping a bunch of chapters
-\setcounter{chapter}{50}
-\chapter{Another chapter}
-\setcounter{figure}{73}
-\setcounter{table}{88}
-\begin{figure}
-\centering
-\fbox{\hbox to.8\linewidth{\hss Another figure\hss}}
-\caption{Another figure caption}
-\end{figure}
-\begin{table}
-\centering
-\caption{Another table caption}
-\begin{tabular}{ccc}
-\toprule
-X&Y&Z\\
-\midrule
-a&b&c\\
-\bottomrule
-\end{tabular}
-\end{table}
-\begin{figure}
-\caption{ASDF fig}
-\end{figure}
-\begin{table}
-\caption{ASDF tab}
-\end{table}
-
-\appendix
-\Blinddocument
 
 % Stuff at the end of the dissertation goes in the back matter
 \backmatter
 \bibliographystyle{plain} % Or whatever style you want like plainnat
-\bibliography{references}
+\bibliography{ThesisBib}
 
 \end{document}

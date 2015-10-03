@@ -1,0 +1,116 @@
+\subsection{Linear combination of proximity and diversity (LCPD) }
+\label{sec:lcpd}
+
+In this approach, we define Suitability for Retrieving Training video ($SRT$) score for a valid keyword $K$ as a score that indicates how suitable the valid keyword is to retrieve videos for category $i$ such that the resulting training data has the desired properties discussed in Section~\ref{sec:desiredpropdata}. $SRT$ score of a valid keyword is defined based on the Proximity score of the keyword as defined and measured in Section~\ref{sec:overviewselectSRK}, and the Diversity score as defined below. 
+
+For the training data $T(i)$ of category $i$, the Intra Category Diversity $div(T(i))$ can be measured as the average pair-wise distance between the videos in $T(i)$, assuming a distance measure between the videos. The time-complexity of such a measure, however, is $O(N^2)$ where $N$ denotes the cardinality of $T(i)$. For the approach proposed in this section, we choose to estimate $div(T(i))$ by the variance of $T(i)$, primarily because of its low time-complexity $O(N)$. 
+
+\begin{equation} \label{eq:diversityeqn}
+\indent div(T(i)) =   \sqrt{\frac{\sum\limits_{j=1}^N \mid v_j - \mu_i \mid ^2}{N}}  , 
+\end{equation}
+where $\mu_i=\frac{\sum\limits_{j=1}^{N} v_j}{N}$; $v_j$ is a training video for category $i$, and $N$ is the cardinality of the set T($i$), i.e., $\left \{ v_j \in T(i) \right \}_{j=1}^{N}$.
+
+%From the discussion in Section II, a valid keyword $K$ should be preferred if it leads to higher Intra-Category Diversity of the resulting set of training videos. 
+Assume that $T\text{'}(i)$ is the current training data of category $i$, then the set of training videos of category $i$ when $RV(K)$ are added to $T\text{'}(i)$ would be  $\{T\text{'}(i) \cup RV(K)\}$. We hence define \textbf{Diversity score} of a valid keyword $K$ for category $i$, given existing training data $T\text{'}(i)$, as 
+\begin{equation} \label{eq:divscorelcpd}
+\text{Diversity score for $K$ given $T\text{'}(i)$} = div(T\text{'}(i) \cup RV(K)),
+\end{equation}
+where $div()$ can be calculated using (\ref{eq:diversityeqn}). 
+
+For the set of categories {$Baby$, $Clothing$, $Fitness$, $Food$}, Table I shows the Proximity and Diversity scores for certain valid keywords of category $Baby$. For the purpose of calculation of these scores, the existing training data $T\text{'}(i)$ for category $i$ is taken to be $RV(C_i)$. The valid keyword `\textit{baby carriage}' has a high Proximity score, indicating it retrieves videos that are very close (in terms of Euclidean distance) to $RV(\text{`}Baby\text{'})$, but has a low Diversity score, indicating low Intra-Category Diversity of the resulting training data \{$RV($`\textit{Baby}'$) \cup RV($`\textit{Baby Carriage}'$)$\}. Compared to this, `$alert$' is a Valid Candidate Keyword for $Baby$ which has a high Diversity score, but has a very low Proximity score and hence very unlikely to retrieve Baby-related training videos.  Note that Table I only shows valid keywords so candidate keywords such as `$shawl$' that fail the Validity Filter are not provided.
+
+\begin{table}
+\fontsize{8pt}{1em}\selectfont
+\begin{center}
+\caption{{Proximity and diversity scores for a few valid keywords of category $Baby$, calculated as detailed in Section~\ref{sec:lcpd}}
+\label{tab:PopularKeywords}}
+\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Valid Candidate Keyword} & \textbf{Proximity Score} & \textbf{Diversity score} \\
+		\hline
+		alert   & 0.607 & 0.3737\\
+		\hline
+		baby carriage & 3.346  & 0.2525\\
+		\hline
+		baby sit   & 2.815 & 0.2559\\
+		\hline
+		bassinet  & 3.148 & 0.3127\\
+		\hline
+		newborn  & 1.794 & 0.3495\\
+		\hline
+		swaddle  & 3.287 & 0.1899\\
+		\hline
+		tootsy  & 0.989 & 0.4769\\
+		\hline
+		bathing  & 0.756 & 0.2036\\
+		\hline		
+\end{tabular}
+\vspace{-0.25in}
+\end{center}
+\end{table}
+
+In order to combine the Proximity and Diversity scores to obtain $SRT$ score of a valid keyword $K$, we assume $SRT$ to be a simplistic linear combination of the two scores. $SRT(K, T\text{'}(i))$ denotes the Suitability for Retrieving Training video score of a valid keyword $K$  for category $i$, given that existing training data for category $i$ is $T\text{'}(i)$.  
+
+$SRT(K, T\text{'}(i)) = $
+\begin{equation} \label{eq:SRTeq}
+\alpha * \left\{ \frac{N_1}{\mid \mu_K - \mu_i \mid}  \right\}  + (1-\alpha)*\left\{ N_2.div(T(i) \bigcup RV(K)     )  \right\}. 
+\end{equation}
+
+Here, $N_1$ and $N_2$ are normalization factors used to ensure that Proximity and Diversity scores have the same order of magnitude in (\ref{eq:SRTeq}). $\alpha \in \lbrack 0, 1 \rbrack$ is the \textbf{moderation factor}, which decides the weight given to the Proximity score relative to the Diversity score. We next discuss an iterative algorithm to obtain (a maximum of) $L$ keywords as SRK from a given set of candidates for each category, using $SRT$ as calculated in (\ref{eq:SRTeq}). 
+
+\subsubsection{SRK Selection Algorithm for LCPD}
+\label{sec:lcpdalgo}
+
+The category names $C_i$, and number of SRKs to be selected ($L$) are inputs to the proposed SRK Selection Algorithm (Algorithm \ref{SRTAlgorithm}) shown below. Assume that $M$ Candidate Keywords are available for each category. Let the set of Candidate Keywords for category $i$ be $K_{Candidates,i}$. For each category, a set of valid keywords $K_{Valid,i}$ is selected as a subset of $K_{Candidates,i}$ that satisfy (\ref{eq:ValidityFilter}). Starting with $T\text{'}(i)=RV(C_i)$, $SRT(K, T\text{'}(i))$ is calculated for each valid keyword using (\ref{eq:SRTeq}), and the top keyword $K_{top}$ is selected as an SRK. $T\text{'}(i)$ is then updated to {$T\text{'}(i)  \cup RV(K_{top})$}, and the process is repeated until $L$ SRKs are selected or there are no valid keywords left. The proposed algorithm selects SRKs in an iterative manner, as compared to ranking valid keywords by their $SRT$ score calculated once and selecting the top $L$ keywords. While the latter calculates $SRT$ scores independent of other SRKs selected, the proposed algorithm attempts to increase Intra-Category Diversity of the resulting training data, leading to better performance of trained classification model.
+
+For each category, number of valid keywords may be different and hence, the number of selected SRKs by the proposed algorithm need not be similar across different categories. In order to avoid any class imbalance, we select the first $L\text{'}$ SRKs for each category to obtain training videos, where $L\text{'}$ is the minimum number of SRKs selected by the proposed algorithm across all categories. $L\text{'} \le  L$ since a category may have less than $L$ valid keywords. The training videos retrieved by SRKs as per (\ref{eq:trainingDataUnioneqn}) can be utilized to train a classification model by giving equal weight or unequal weights to training videos, as discussed below. 
+\begin{itemize}
+\item \textbf{Non-Weighted Instances:} Classification model is trained by giving equal weight to all training instances (videos). 
+\item \textbf{Weighted Instances:} Classification model is trained by giving a weight to a training video $v$ depending on the order in which the proposed algorithm selected the SRK corresponding to $v$. Consider a SRK $K$ that is selected for category $i$ by the proposed algorithm in the $n^{th}$ iteration. Each video $v$ in $RV(K)$ gets weight equal to ($1-1/n$). 
+\end{itemize}
+\begin{algorithm}
+\fontsize{8pt}{1em}\selectfont
+\caption{SRK selection algorithm for LCPD approach}
+\label{SRTAlgorithm}
+%\begin{algorithmic}[1]
+\textbf{Inputs:} \\ 
+\hspace*{2mm} Names of categories: $C_i$ \\
+\hspace*{2mm} Number of SRKs: $L$ \\
+\hspace*{2mm} Candidate keywords per category: $K_{Candidates, i}$\\
+\hspace*{2mm}   (Note that the algorithm is run for each category) \\ 
+%\Procedure{ArraySum}{$A$}
+\textbf{Initialization:} \\ 
+\hspace*{2mm} $K_{SRK, i} \leftarrow  [ \ ] \text{~(empty set)}$ \\
+\hspace*{2mm} $T\text{'}(i) \leftarrow  RV(C_i)$ \\
+\textbf{Applying Validity Filter:} \\
+\hspace*{2mm} $K_{Valid,i} \leftarrow \{K \in K_{Candidates, i} \}: K$ satisfies (\ref{eq:ValidityFilter}) \\
+\textbf{Iterative Algorithm:} \\
+%\begin{tabbing}
+\hspace*{2mm} For $n$=1 to $L$ (each iteration) \\
+%\hspace*{6mm} For $i$=$1$ to $N_{Cat}$ (each cattegory) \\
+\hspace*{6mm}  If $\mid K_{Valid, i}\mid=0$: STOP \\ 
+\hspace*{6mm}  Calculate $SRT(K,T\text{'}(i)) \forall K \in K_{Valid, i}$ as per (\ref{eq:SRTeq})  \\
+\hspace*{6mm}  \text{$K_{top}  \leftarrow \argmax_K{SRT(K,T\text{'}(i))}$} \\
+\hspace*{6mm}  $K_{SRK, i} \leftarrow K_{SRK, i} \cup K_{top}$ \\ 
+\hspace*{6mm}  $T\text{'}(i) \leftarrow  T\text{'}(i) \cup RV(K_{top})$ \\
+\hspace*{6mm}  $K_{Valid, i} \leftarrow K_{Valid, i} \setminus K_{top}$ \\
+%\hspace*{6mm} EndFor\\
+\hspace*{2mm} EndFor \\ 
+\textbf{Output:} $K_{SRK, i}$
+%\end{tabbing}
+%    \State $sum = 0$
+%    \For {each integer $i$ in $A$}
+%        \State $sum = sum + i$
+%	\EndFor
+%	\State Return $sum$
+%\EndProcedure
+%\end{algorithmic}
+\end{algorithm}
+
+\textbf{Analysis of Algorithm~\ref{SRTAlgorithm} and proposed methods.}
+For the two methods described above, if the candidates are distinct, selecting more SRKs is in general expected to increase the Intra-Category Diversity, thus leading to better performance. However, after certain number of SRKs are selected, it is expected that the additional information of the new topics coming into the training data will reduce, and performance might saturate. Also, the SRKs selected in earlier iterations were determined to be more suitable for retrieving training videos than ones selected later by Algorithm~\ref{SRTAlgorithm}. The SRKs selected in last few iterations might not be very suitable to retrieve training videos of the respective category although they cleared the Validity Filter. Such SRKs might add videos of topics beyond the realm of categories of interest, and make the training data too general and less discriminative. Hence, the performance of Non-Weighted Instances method might peak at a certain $L$, and then degrade since it gives equal weight to training videos retrieved by all SRKs. In the Weighted Instances method however, the weight given to videos retrieved by SRKs accepted later is lesser. This makes the trained classifier less influenced by videos retrieved by SRKs that are selected in the last few iterations by the Algorithm~\ref{SRTAlgorithm}. Thus, unlike in the case of the Non-Weighted Instances method, the performance of Weighted Instances method may saturate with increasing $L$. The number of SRKs that lead to best classification performance for Non-Weighted Instances method may vary with the set of categories, the number and source of candidate keywords, among other factors. It is hence a better approach to choose as large $L$ as permitted by computational resources, and utilize the training videos for training of classification model, using the Weighted Instances method.
+
+\textbf{Complexity analysis for Algorithm~\ref{SRTAlgorithm}.}
+The time-complexity of Algorithm~\ref{SRTAlgorithm} is $O(M.N_{Cat}.L)$,  where $M$  is the number of candidates for each category, $N_{Cat}$ is number of categories, and $L$ is the number of SRKs selected. This is because in every iteration, the valid keywords for each category are given an $SRT$ score, and the maximum number of iterations that the proposed algorithm can run for is $L$. For fixed $M$ and $N_{Cat}$, the time-complexity of proposed algorithm varies as $O(L)$. The space-complexity of the proposed algorithm is $O(L)$ when the number of videos retrieved per SRK is kept constant. For learning tasks, when a very large sized training data is available, the size of training data used for training a model is generally constrained based on space and time-complexity of the employed learning algorithms, and available resources. Such constraints can dictate the total number of SRKs, i.e., $L$, utilized to retrieve training videos. In the following section, we provide observed space requirement, and time taken by the proposed algorithm based on our implementation, as well as its performance. 
+
+The moderation factor $\alpha$ controls the relative importance given to proximity and diversity scores of valid keywords, and thus controls the set of SRKs that are finally selected. The value of $\alpha$ that leads to best performance of the video classification model depends on the category in concern, and on its set of candidate keywords and is thus hard to estimate beforehand. As will be shown in Section~\ref{sec:expt}, the video classification accuracy varies substantially with the moderation factor $\alpha$. Thus, as is also discussed in Section~\ref{sec:intro}, a shortcoming of the LCPD approach is that it requires a pre-determined value for the moderation factor $\alpha$, which may not be always available. So we next propose an approach that balances the objective functions of proximity and diversity of a set of keywords in a simulated annealing framework, thus converging to a unique solution, without the need to articulate preferences or bias towards either objective apriori.  
