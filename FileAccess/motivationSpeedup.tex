@@ -1,0 +1,152 @@
+\subsection{Scalability}
+\label{sec:scalability}
+%%
+Unlike training, which is an offline process, classification needs to
+be performed in real time.  Therefore, we analyze time and space
+complexities of only the testing, i.e., the classification phase.
+
+\subsubsection{Time complexity}
+In an actual deployment, whenever a file is created or modified in a
+share, our system applies personalized models of each user in the
+share.  Therefore, the runtime performance depends on the rate of file
+edit operations $R_{edit}$ (in files per second) and the number of users $N$.
+
+Let us compute the time taken to classify one file.  Let
+$T_{meta\_model}$ and $T_{cf\_model}$ represent the average times (in seconds) 
+required to apply a metadata model, and a CF model respectively.  We
+need time $T_{meta\_feature}$ seconds to extract metadata features, and
+$NT_{meta\_model}$ seconds to extract collaborative filtering features by
+applying the metadata model of each user.  We then apply the CF model
+of each user, which takes $NT_{cf\_model}$ seconds.  Thus, the total
+classification time for one file is: $T_{meta\_feature} +
+NT_{meta\_model} + NT_{cf\_model}$ seconds.
+
+
+To make approximate calculations, we replace $T_{meta\_model}$ with
+$T_{cf\_model}$ and ignore
+$T_{meta\_feature}$ because it is negligible as compared to
+$NT_{cf\_model}$.  Thus, it would take total time of
+$2NT_{cf\_model}R_{edit}$ seconds to process all the files edited in each second.  Considering
+the sample values we observed for some of the high workload shares: $N
+= 16,000$, $R_{edit} = 5$ files/second, $T_{cf\_model} =
+19\times10^{-3}$ second, the total time would be $3040$
+seconds. Hence, in order to process all the files created or modified per 
+second, we would need at least 48 64-core machines, with each core
+concurrently performing classification.
+
+Undoubtedly, the computational resources required to handle this kind
+of workload would amount to a significant financial cost to the
+enterprise.  In the next section, we address this problem by
+presenting an optimization technique that substantially lowers the
+computational requirements without sacrificing classification
+accuracy.  With this improvement, we need just one 64-core machine to
+manage the above mentioned heavy workload.
+
+\subsubsection{Space complexity}
+Unlike computation, memory requirements of our system are quite modest
+even for heavy workloads.  Considering values: $N=16,000$, $R_{edit} =
+5$ files/second, $F_{meta} = 35,000$ (highest number of metadata features in our
+datasets), and $S$ = 4 bytes (size of value and weight of a feature),
+we would need maximum ($F_{meta} + N) R_{edit} S$  i.e., nearly 1MB memory for all
+the features in the worst case.  Note that the features of a file
+remain the same for all the user models.  Each metadata model is
+represented by $F_{meta}$ weights, and each CF model is represented by
+$F_{meta} + N$ weights.  Thus, the total memory to store metadata and
+CF models of all the users is: $(2F_{meta} + N) \times NS$ i.e., approximately 5 GB.  In
+practice, the required memory would be much smaller because
+collaborative filtering will be applied to a small subset of users
+that show high degree of collaboration.
+
+\comment {
+\subsection{Scalability and Complexity Analysis}
+\label{sec:scalability}
+
+In the proposed system, the feature vector of each file is sparse and
+is the same for all user models in a share. Let $N_{Meta}$ denote the number of metadata features and $N_{AM,f}$ denote the number of
+metadata features of $f$ that are $active$, i.e., have a non-zero value. We use a sparse representation for the metadata features and as a result, the space requirement by a file $f$ when metadata models are used is only $O(N_{AM,f})$, which is typically much less than what it would have been if a sparse representation were not used, i.e., $O(N_{Meta})$. The space requirement of $f$ when CF models are used is $O(N_{AM,f} + \mid\!\!U\!\!\mid)$ since in addition to the active metadata features, features corresponding to predicted labels by
+$\mid\!\!U\!\!\mid$ metadata models also need to be stored.
+
+During testing, personalized models for each user in the share need to
+be applied on every created or modified file. Let $R_{edit}$ denote
+the rate of file generation or modification, in terms of files per
+second. For using metadata models, the total time taken to process all files edited (i.e.,
+created or modified) per second is equal to
+\begin{equation} 
+\label{eq:speedupmotv}
+T_{Proc} = [ T_{Tok}  + T_{FeatEx} + \{ T_{Model} \times \mid\!\!U\!\!\mid \} ] \times R_{edit}. 
+\end{equation}
+$T_{Tok}$, $T_{FeatEx}$, $T_{Model}$ are the times in seconds to tokenize, extract features from, and apply a metadata model on a file respectively. \begin{math}T_{Tok}  + T_{FeatEx}\end{math} is typically negligible as compared to \begin{math} T_{Model}\times \mid\!\!U\!\!\mid  \end{math}. 
+Thus the testing time complexity of our system varies as $O(\mid\!\!U\!\!\mid \times R_{edit})$. 
+Note that during testing with CF models, $\mid\!\!U\!\!\mid$ metadata models need to be applied on each file, followed by $\mid\!\!U\!\!\mid$ CF models. Also, the time to apply CF models is at least as much as the time to apply metadata base models (i.e., $T_{Model}$) since the former models are based on more features. Thus $T_{Proc}$ for CF models is at least twice as much as that obtained using (\ref{eq:speedupmotv}). We provide numerical values below for metadata models. For CF models, the time taken would be approximately multiplied by a factor of two. 
+%However for the below calculation, we only consider the $T_{Proc}$ for metadata models.
+On a 2.7GHz 32GB machine, \begin{math}T_{Model}\end{math} for share G for the training set that gives highest F-score has a mean of 19 milliseconds and maximum of 60 milliseconds per file per user model, across 30 evaluation users. %, and is maximum 60 milliseconds. The high rate of content generation and modification in enterprises has been discussed in Section~\ref{sec:introduction}. 
+%<!-- As a specific example, the average rate of file edits (file write or create operations) for Share I is 0.21 file edits per second. --> 
+ By analyzing the recent file activity in several network file shares,
+ we observe that \begin{math}R_{edit} \end{math} can be over 300 file
+ edits per minute on average. We also observe that there are shares
+ with activities from over 16,000 users,
+ i.e., \begin{math}\mid\!\!U\!\!\mid\end{math} can be over 16,000.
+   Using (\ref{eq:speedupmotv}), \begin{math} T_{Proc} \end{math} is equal to 1520
+   seconds. This means that 
+%4800 seconds 
+% the number was 36 seconds earlier. This implies that on an average, more than four 8-core computers or more than one 32-core computer would be required to continuously process the edited content in one share. --> 
+in order to provide recommendations for all edited files on a share, our system could require as many as 24 64-core machines on average. In addition to the high computational requirement on average, it is also observed that file edits often appear in bursts thereby leading to further increase in the load during peak hours. The high computational requirement associated with implementing the proposed system translates to a significant financial burden on the enterprise and may even render recommending content to users infeasible. In order to address these shortcomings, the next section proposes an approach that can substantially lower the computational requirement during testing. Based on the proposed approach, we show that the implementation of our system even for a large share can be done using the computational resources provided by just one 32 core machine. 
+%and 75 machines when file edit rate is high. 
+%75 64-core machines! 
+%Such a high computational requirement in testing 
+% Based on above, an enterprise having tens of thousands of shares may need a cluster having tens of thousands of powerful computers to determine which user may be interested in a new or modified content. This -->
+%translates to significant financial burden on the enterprise which may even render recommending content to users infeasible. In addition, it is observed that file edits often appear in bursts and this may further increase the computational load during peak hours. 
+%The figure below provides the distribution of the number of file edits (i.e., create or write) activities per minute that occur in share I. Among the minutes that saw any file edit activity, the mean number of file activities is 178, the 95-percentile is 450 and the maximum is 2889. In order to process 95\% of the active minutes, the proposed system needs to process at least 450 files per minute. That gives <math> T_{Process~All~Files~Edited~Per~Second} = 1282.05 </math> seconds. That is, due to bursty characteristic of file edits,  is, more than 160 8-core machines or 40 32-core machines would be required to process the content created or modified per second. -->
+%It must be mentioned that the rate of content generation in enterprises increases by 40-50\% every year and this vastly overshadows the rate of growth in processor clock speeds or even in number of processors per machine [cite]. Thus the gap between rate of content generation and computational power will only increase in future and it is necessary to investigate approaches that can reduce the time it takes to recommend a new file to interested users. This is the motivation for developing a technique that can speed-up the testing process by several orders. 
+%gracefully 
+%As files are generated or modified on a share, our system needs to apply personalized model of each user to make the predictions. Therefore, We can address these factors to optimize the testing time as discussed in Section~{\ref{sec:futurework}}.  
+}
+\comment{
+A significant obstacle for this system in terms of scalability
+is the fact that each user has a personalized model.  Section~{\ref{sec:conclusion}} points out the potential to
+reduce the testing time by selecting the user models to apply on a new
+file. 
+} 
+\comment{
+In terms of deployment, file recommendation is not necessarily
+required for all users and file servers.  We can only enable the
+recommendations on those file servers that aren't home shares or that
+do not run applications that we are not interested in, such as backup,
+or tasks run by administrators. For example, it would not make much
+sense to deploy this system on a Linux style networked home directory.
+It may not make much sense to provide file recommendation to
+low-volume file users, but rather focus on enterprise search when they
+do need to find information. It may be prudent to train a model for
+only the users that are determined to be sufficiently active in a
+share, constituting a small proportion of the total user
+population. Further, training CF would not be recommended for
+shares showing less degree of collaboration as evidenced by normalized
+triangle counts.
+Moreover, a recommendation system may
+not be essential for all the file servers. For instance, it would not make 
+much sense to deploy our system on a networked home directory or on a 
+backup server. Additionally, it may 
+not make much sense to provide file recommendation to low-volume file users, but 
+rather focus on enterprise search when they do need to find information. 
+It may be prudent to train a model for only the users that are determined to be 
+sufficiently active in a share. 
+%we can ignore home shares or backup servers.  Additionally, we don't need personalized
+%models for users who are not active.  
+Furthermore, for shares that do not demonstrate high degree of user collaboration, 
+training and using CF models may not be recommended since they are computationally 
+much more expensive than metadata models.
+} 
+
+
+
+
+
+
+
+\comment{
+Updates (last day of intern): 
+On-demand computing from Amazon EC2 shows that corresponding to 75 64-core machines, it would cost us: 
+1.120*8*75*24*30*12 dollars per year = more than 5.8 million USD!  (for one large repository) 
+The number 1.120 is for On-Demand can be changed to 0.4640 since latter is for Reserved Instances. 
+}
+

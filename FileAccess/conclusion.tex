@@ -1,0 +1,112 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper presents a system to assist knowledge workers in
+discovering useful new or modified content.  The system builds
+personalized user models using features derived from file metadata and
+user collaboration.  Our experiments showed that the basic modeling
+approach does not scale well under heavy workloads. To address this
+problem, we developed a novel optimization technique that improves
+runtime performance without sacrificing prediction accuracy.  We also
+showed how the technique can be adapted to improve the performance
+significantly at marginal cost of the predictive correctness.
+
+For future work, we could improve our system along different
+directions.  Leveraging interactions observed between the features, we
+could reduce dimensionality of the data for better efficiency and
+effectiveness.  We could implement a weighing scheme that gives more
+importance to the recent activity as it is more reflective of the
+current preferences of users.  Finally, we could incorporate features
+that capture producer-consumer relationship between users.
+
+%% This paper presented a system that can assist knowledge workers to cope up with the growing enterprise data by recommending relevant new or modified content. The system trains file metadata models that can also leverage user collaboration to make more accurate predictions. 
+%% %This paper presents a file recommender system that recommends relevant new or modified content to knowledge workers to assist them to cope up with the tremendous growth rate of enterprise data. The system uses file metadata and past user activity to train personalized user models and it is shown that collaboration demonstrated by the users can also be leveraged to make models more accurate. 
+%% While experiments based on real enterprise activity demonstrated the feasibility of using the proposed system to recommend new content, it was observed that high testing computational requirement poses challenges for its deployment in enterprises, especially on large and active shares. In order to address this shortcoming, we proposed a novel model selection approach AFMS which is designed to leverage properties of the machine learning models used in our system, and of the enterprise data and trained models. AFMS can predict the user models to be applied on each test file and can facilitate a very convenient trade off between model correctness and testing speed. This enables implementing our system even for large and active enterprise shares using the computational resources of only a single household machine. 
+
+%% The metadata and collaboration based features used in our system exhibit significant inter-dependence 
+%% %For example knowing that the folder feature value corresponding to a folder in the file system is 1, one can conclude that the folder features corresponds to its ancenstor folders would also be 1. Such inter-dependence 
+%% which could be leveraged to reduce the dimensionality of our data and improve the efficiency and efficacy of our system. In addition, during training, our system gives a uniform importance to training instances regardless of their recency. Since recent user activities are more reflective of current access patterns, weighing schemes for training instances may be investigated in future. 
+%% Lastly, directed \textit{producer-consumer} relationships between users may be infered from past activity that can recommend content to a user (consumer) if it is created by other user (producer). 
+
+
+%%% COMMENTED -- OLD CONTENT 
+\comment{
+
+\section{\uppercase{Future work}}
+\label{sec:futurework}
+
+
+
+
+The metadata features show a high degree of sparsity as is typical for
+datasets of this size and scope. A file typically has very few
+keywords in its path, and thus most of its token features would be
+zero. Similarly, very few of its folder features, and at the maximum
+of one extension feature of a file are non-zero.
+
+While sparsity can be helpful for training user
+models~{\cite{ngiam2011sparse}}, the large dimensionality of data may
+negatively affect the performance of the models. It is possible that
+the correctness and speed of the proposed system can be further
+improved by capturing the interdependence between different features
+through dimensionality reduction techniques such as Principal
+Component
+Analysis~\cite{jolliffe2005principal}\cite{van2009dimensionality}.
+For example the folder features demonstrate substantial
+interdependence and redundancy and techniques to transform them to a
+suitable space may be explored.  A different approach would be to use
+feature hashing \cite{FIXME} to reduce sparsity without detrimental
+effects on performance.
+
+Modeling the file metadata and user features in context of temporal
+nature of file accesses could also be a potential direction for
+further work. For example, giving more importance to recent events
+while training user models may accommodate shifts in user interests,
+leading to improved performance.  Identifying and modeling repetitive
+activity may also be informative since users may be interested in
+similar tasks after fixed time intervals, such as on the same day each
+week.  As mentioned in Section~{\ref{sec:realdeployment}}, deployment
+of the proposed system in an enterprise environment offers an online
+framework to evaluate the trained models. Online model training or
+update techniques can be developed that utilize the model evaluation
+information to improve the trained models by adapting them to new
+access patterns or newly observed features. For example, consider a
+scenario where a trained model is seen to perform poorly because most
+of the recent activity for a user is confined to a recently created
+folder that was not part of the folder features in the trained
+model. Such information can be derived from the online evaluation and
+can be used to update features of the trained model and to adapt the
+model to reflect the updated access patterns.\\
+\indent In addition to training personalized user models, insight into
+directed preferences of users may be useful for recommending
+content. For example if it is determined that user $u_1$ often
+accesses documents created by user $u_2$, then a recent modification
+by $u_2$ may be useful information for $u_1$ and can be used as an
+indicator to recommend relevant content.  \\
+\indent Lastly, file access
+prediction offers interesting possibilities for applications such as
+information security, by offering new measures of access improbability.
+}
+%%% COMMENTED -- OLD CONTENT 
+%%% COMMENTED -- OLD CONTENT 
+\comment{
+This paper presents a system that provides file recommendation to
+assist knowledge workers process increasing volumes of
+data.  The system utilizes natural language processing to derive
+usable information from file metadata, and machine learning to train
+personalized user models that have good predictive value, even for files that 
+have not been observed in the past. Through extensive
+experiments on real world data we demonstrate the feasibility of the
+system to offer high quality recommendations, which is
+reflected particularly in the significant recall at high precision
+across eight shares. We also show that for shares exhibiting a high
+degree of collaboration between its users, the predictions from
+different user models can be combined to improve the performance of an
+individual user's model.  It is observed that the trained models have
+a high temporal longevity, and experience moderate performance
+degradation for short training periods. Since the system
+requires training personalized models for each user under
+consideration, it should be applied only on shares
+and users that display sufficient activity and are determined to be of
+interest.
+}

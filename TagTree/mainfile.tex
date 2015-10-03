@@ -1,0 +1,83 @@
+
+
+\section{ABSTRACT}
+
+Several expert systems have been proposed to address the sparsity of tags associated with online content such as images and videos. However most of such systems either necessitate extracting domain-specific features, or are solely based on tag semantics, or have significant space requirements to store corpus based tag statistics. To address these shortcomings, in this work we show how ontological tag trees can be used to encode information present in a given corpus pertaining to interaction between the tags, in a space efficient manner. An ontological tag tree is defined as an undirected, weighted tree on the set of tags where each possible tag is treated as a node in the tree. We formulate the tag tree construction as an optimization problem over the space of trees on the set of tags and propose a novel local search based approach utilizing the co-occurrence statistics of the tags in the corpus. To make the proposed optimization more efficient, we initialize using the semantic relationships between the tags. The proposed approach is used to construct tag trees over tags for two large corpora of images, one from Flickr and one from a set of stock images. Extensive data-driven evaluations demonstrate that the constructed tag trees can outperform previous approaches in terms of accuracy in predicting unseen tags using a partially observed set of tags, as well as in efficiency of predicting all applicable tags for a resource. 
+
+
+\input{TagTree/ontology_Introduction}
+\input{TagTree/ontology_relatedWork}
+\input{TagTree/ontology_Formulation}
+\input{TagTree/TreeBuilding}
+\input{TagTree/ontology_Expts}
+
+
+\section{Discussion}
+\label{sec:Discussion}
+\begin{figure*}[t!]
+\centering
+\minipage{0.49\textwidth}
+\centering
+  \includegraphics[width=\linewidth]{TagTree/RebuttalNIterationsWithTauNew} 
+%  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTau}
+  \caption{Variation of number of iterations with $\tau$}
+  \label{fig:TauNIterations}
+%\end{centering}
+\endminipage %\hfill
+\minipage{0.49\textwidth}
+  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTauNew}
+  \caption{Variation of number of candidate neighbors with $\tau$}
+  \label{fig:TauNCandidate}
+\endminipage %\hfill
+\end{figure*} 
+\begin{figure*}[t!]
+\minipage{0.49\textwidth}
+%  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTau}
+  \includegraphics[width=\linewidth]{TagTree/TimeNIterationsWithTau}
+  \caption{Variation of time (hours) taken by local search to converge}
+  \label{fig:TauTimetaken}
+\endminipage %\hfill
+%\vspace{0.1in}
+\minipage{0.49\textwidth}%
+  \includegraphics[width=\linewidth]{TagTree/RebuttalAccuracyWithTauNew}
+%  \includegraphics[width=\linewidth]{RebuttalNCandidatesWithTau}
+  \caption{Variation of the Average Tag Prediction Accuracy with $\tau$}
+  \label{fig:TauAccuracy}
+\endminipage
+\end{figure*}
+
+In this section, we provide a discussion on the key insights and observations made during the course of study on ontological tag trees. \\
+\indent As outlined in Section~\ref{sec:ConstructionTree}, the motivation for the objective function (\ref{eq:ObjFnWeightedHops})  in the proposed approach is that in order to get a lower value for (\ref{eq:ObjFnWeightedHops}), it is more important to separate the tags $t_i$ and $t_j$ having high $J_{\mathcal{T}}(i,j)$ with less number of hops, as compared to the tags with low $J_{\mathcal{T}}(i,j)$. However, separating the latter set of tags by fewer hops would also lower the value of  (\ref{eq:ObjFnWeightedHops}). Since (\ref{eq:ObjFnWeightedHops}) attempts to minimize the weighted number of hops between tag pairs, a local search in the space of all possible trees on $\mathcal{T}$ would lead to connecting most tags to a central tag, thus forming a star graph. Such a minimum weighted hops spanning tree problem on an all connected graph can be solved in polynomial time using Gomory-Hu trees~\cite{panigrahi2008gomory}, however star graphs need not reflect the true relationship between tags in a corpus. In order to ensure that the proposed approach does not induce artificial structures because of bias of the objective function, we constrain the search space to be spanning trees of a suitably constructed Similarity Graph with the help of a threshold $\tau$, as outlined in Section~\ref{sec:refinement}. Experimentally, constraining as above does succeed in ensuring that we do not get a star graph. However upon visual inspection, the proposed approach yields star subtrees connected through their centers.
+The objective function (\ref{eq:ObjFnSimApprox}) in comparison has no such bias for shorter trees and as a result, the results for proposed approach using (\ref{eq:ObjFnSimApprox}) outperform those using (\ref{eq:ObjFnWeightedHops}). 
+\hl{Figures {\ref{fig:TauNIterations}} through {\ref{fig:TauAccuracy}} show the variation of different aspects of constructed tag trees with $\tau$ for 117 Flickr tags. Fig.~{\ref{fig:TauNCandidate}} shows that with increasing $\tau$, the number of tag trees that are eligible candidates in an iteration of the local search, drops drastically for both LS-WAH and LS-SA. As discussed above, a lenient $\tau$ leads to the LS-WAH based local search converging to star graphs which are an artefact of the procedure and not of the true relationships between the tags. As a result, for lower $\tau$, the performance of LS-WAH based approach degrades substantially as can be seen in Fig.~{\ref{fig:TauAccuracy}}. For large values of $\tau$, the number of candidate neighbors at each iteration of the local search become less. This constrains the local search and prevents it from attaining a lower value for the objective function ({\ref{eq:ObjFnSimApprox}}). This leads to a drop in the performance of LS-SA as can be seen in Fig.~{\ref{fig:TauAccuracy}}. We have chosen a threshold as the median of the pair-wise jaccard similarity values since it offers a convenient trade-off between number of candidates and performance for LS-SA. } 
+
+At each iteration of the proposed approach, there are $O(N^2)$ neighbors of a tree to explore, where $N=\mid \mathcal{T} \mid$. Calculating the pair-wise distances (or hops) and computing (\ref{eq:ObjFnWeightedHops}) or (\ref{eq:ObjFnSimApprox}) requires $O(N^2)$ operations per neighbor~\cite{ford2010flows}. Thus, the complexity of the proposed approach, for either objective function, is $O(N^4)$ per iteration. \hl{A bottleneck of the proposed tag tree construction approach is the time taken for local search to terminate. Fig.~{\ref{fig:TauTimetaken}} shows the variation of the time taken by the proposed local search based approach, with respect to $\tau$. Matlab on a 2.9GHz, 8GB RAM 4 core processor is used.} One way to reduce the time taken at each iteration is to reduce the number of neighbors. This is achieved by constraining the solution space to spanning trees of a Similarity Graph. While the order of complexity at each iteration remains at $O(N^4)$, the time taken is much less. For instance, when $\tau$ is chosen as median of the pair-wise jaccard similarity values as in Section~\ref{sec:Expts}, the time taken is nearly half of the time taken when $\tau=0$, which corresponds to having search space as all possible trees on $\mathcal{T}$. 
+%Thus, confining the local search to spanning trees of the Similarity Graph helps ensure that the proposed approach using objective function (\ref{eq:ObjFnWeightedHops}) gives a non-trivial solution. Since the proposed approach using objective function (\ref{eq:ObjFnSimApprox}) has no such bias 
+%It is not necessary for the correctness of the proposed approach using (\ref{eq:ObjFnSimApprox}) to use the Similarity Graph.
+%Thus, the Similarity Graph has different uses for objective functions (\ref{eq:ObjFnWeightedHops}) and (\ref{eq:ObjFnSimApprox}). While in the case of the former, it helps to ensure that the proposed approach leads to a non-trivial solution, in the latter case, its only use is to speed up the search for a local optimum. 
+Thus, for the proposed approach using objective function (\ref{eq:ObjFnWeightedHops}), constraining the local search to spanning trees of a Similarity Graph is necessary to ensure that we do not get a trivial solution.  Doing so also makes the local search faster. \hl{As compared to this, for the proposed approach using objective function ({\ref{eq:ObjFnSimApprox}}), using a Similarity Graph only makes the optimum search faster as can be seen in the reduced number of candidates in Fig.~{\ref{fig:TauNCandidate}} and the reduced number of iterations to converge, as shown in Fig.~{\ref{fig:TauNIterations}}}. 
+
+
+
+\hl{Intuitively, using ({\ref{eq:ObjFnSimApprox}}) as the objective function minimizes the weighted L1 norm of the difference between pair-wise jaccard similarity and the similarity estimated using a tag tree, thus trying to approximate the normalized symmetric second order statistics of a corpus using a tree on the set of tags}. We have chosen weighted L1 norm since it was observed to lead to the best results across different corpora among other variants such as L1, L2 and weighted L2 norm. Implementation of the similarity estimated using a tag tree (\ref{eq:ProdSimSimilarityCalculate}) can be conveniently done by using Logarithms and Ford Fulkerson Algorithm~\cite{ford2010flows}. Also, since the LS-SA approximates the pair-wise similarities $J_{\mathcal{T}}(i,j)$ in $O(N)$ as compared to $O(N^2)$, approaches such as {\cite{sigurbjornsson2008flickr}} that utilize $J_{\mathcal{T}}(i,j)$ lead to equal or only marginally better performance, despite having several orders higher space requirement. \\
+
+
+\section{Conclusions and Future Work}
+
+In this section we summarize the research contributions of our paper, key practical insights, and advantages and limitations as compared to existing expert systems. We also discuss limitations of our work, and provide several suggestions for future research directions. 
+
+We have proposed ontological tag trees to enable expert systems address the sparsity of folksonomies effectively and in a space efficient manner. Ontological tag trees or tag trees are defined as simple trees on the set of tags in a corpus. The construction of tag trees is formulated as an optimization problem on corpus based statistics, and is solved through a novel local search based approach. We have shown that this approach can be used to build tag trees for tags obtained from two corpora, one composed of noisily annotated Flickr images and the other composed of cleanly annotated stock images. To validate the utility of the constructed ontological tag tree, we proposed two evaluation tasks involving tag prediction in images.  We have demonstrated that for the task of predicting the unseen tags of a given image with a partially observed set of tags, the proposed ontological tag trees outperform those constructed using only semantic relationships, or tag graphs constructed using commonly used techniques that have comparable space requirements. In the second task, we have shown that the tag tree obtained from the proposed approach makes the process of using appropriate classifiers to tag an untagged test image more efficient. Robustness analysis shows that the proposed approach is fairly robust to tag noise and differences between the training and test set distributions.
+
+Compared to previous expert systems, our work offers significant advantages. In addition, several key insights can be derived from our study. Since expert systems such as~\cite{MohdSemantic13} based on only semantic relationships fail to capture the data-specific relationships between tags, their performance is significantly lower on data-driven tasks than that of ontological tag trees constructed using the proposed approach. This is demonstrated through evaluations in Section~\ref{sec:Expts}. In addition, we show that even though ontological tag trees have space requirement of only $O(N)$ for $N$ tags, as compared to $O(N^2)$ for tag graphs, tag trees can provide equal or better performance than several existing expert systems on the evaluation tasks. Particularly, compared to~\cite{sigurbjornsson2008flickr} which may require 27 terabytes of space to store pair-wise similarities, our approach requires less than 50 megabytes, and still achieves almost equal performance. Ontological tag trees can thus offer a very convenient method for expert systems to capture corpus based relationships for tasks such as tag prediction, and efficient resource classification. The significant savings in space requirement facilitates practical deployment of the expert systems even on computing devices that do not have gigantic memory available. The third key advantage of using ontological tag trees is that their construction does not depend on the availability of content-based features (such as textual or visual features). Thus as compared to previous expert systems such as~\cite{li2009learning}, \cite{wu2009distance}, \cite{HsiehCollab09}, \cite{ChenEstim15}, \cite{SunLang11}, our approach can help alleviate sparsity of online folksonomies even in domains where extracting content-based features may be inefficient or infeasible~\cite{huang2010text}, \cite{song2010taxonomic}, \cite{zanetti2008walk}, \cite{yin2009exploring}. Lastly, as discussed in Section~\ref{sec:Discussion}, the performance of the LS-SA approach is significantly better than that of the LS-WAH approach. It can thus be recommended that the LS-SA approach be used to construct ontological tag trees. 
+
+
+While the proposed ontological tag trees can help expert systems achieve high performance in a space efficient manner, there are certain limitations of the proposed approach. As discussed in Section~\ref{sec:Discussion}, the time taken per iteration of the local search based tag tree construction approach varies as $O(N^4)$. For large number of tags, the total time taken to construct tag trees can be high. In addition, the tag trees only capture undirected weighted relationships between tags. As a result, any directed relationships that may be present in the corpus (for example subsumption relationships~\cite{SubsumptionFlickr}) are lost by the constructed tag trees. 
+
+
+We provide several suggestions for future work directions based on our work. 
+Since the tag tree construction approach has a limitation of high time requirement, one direction of future work could be to make the proposed approach faster by choosing a higher or an adaptive $\tau$, with the possible trade-off being increasing the constraint on the local search, thereby achieving a sub-optimal tag tree. Another direction of future work could be to keep a low $\tau$ but develop distributed and possibly approximated versions of the proposed approach, such that available distributed clusters, for example Amazon EC2 cloud server~\cite{AmazonEC2}, can be leveraged. 
+In the current work, the LS-SA approach can be thought of as approximating the symmetric second order corpus statistics. An extension of the work could be to construct tag structures that approximate higher order corpus statistics. 
+In addition, future work could utilize the constructed tag trees for other practical applications such as tag recommendation: given set of tags associated with a test images, which $additional$ tags would you associate with the image? Removal of potentially noisy tags can also be studied based on whether a tag appears too far in the tree from other tags associated with a given image. Lastly, a hierarchical taxonomy could be constructed in future, where the edges between the nodes are directed, by adopting similar techniques and using the co-occurrence data from the corpus. 
+
+\textbf{Acknowledgments:} This research was partially supported by an internship at Yahoo Labs, and partially by the Center for Wireless Communications at University of California San Diego. 
+

@@ -1,0 +1,249 @@
+\section{Introduction} 
+\label{sec:introduction}
+The amount of data created, replicated and consumed every year has
+been growing exponentially over the
+years~\cite{IDGBigDataSurvey14}.  Between 2010 and 2020, the digital
+data is expected to grow by 50 times~\cite{IDCDataGrowth}.
+%%
+%  Since the survey was conducted last year, we cannot use below
+%  sentence anymore
+\comment {
+The
+amount of data managed by enterprises follows a similar trend and is
+expected to increase by 76\% within the next 12-18 months
+\cite{IDGBigDataSurvey14}.
+}
+%%
+Following a similar trend, enterprise data was projected to
+increase by 76\% within the last one and half
+years~\cite{IDCDataGrowth}.  The tremendous growth of data has become one
+of the biggest challenges for enterprises.  It places unreasonable
+burden on enterprise users or knowledge workers.
+Studies~\cite{IDGBigDataSurvey14} have shown that nearly 65\% of
+knowledge workers report feeling overwhelmed by the incoming data.
+The situation is further exacerbated by the fact the enterprise data
+resides across heterogeneous devices and environments, including network
+file servers, source control repositories, emails and file servers,
+cloud applications~\cite{salesforce, office365}, and enterprise social
+networks~\cite{EnterpriseSN}.  This makes finding relevant content a
+very challenging task for knowledge workers.
+
+%% Analysis of the growing data plays an
+%% increasingly vital role for businesses and enterprises thus assign a
+%% high priority on their ability to harness the data. At the same time,
+%% the growing data places unreasonable demand on enterprise users or
+%% knowledge workers to cope up with its massive volumes. Studies such as
+%% \cite{IDGBigDataSurvey14} have reported that nearly 65\% of knowledge
+%% workers report feeling overwhelmed by the incoming data. The situation
+%% is further exacerbated by the fact that the data in enterprises is
+%% stored across heterogenous devices and locations. While enterprise
+%% users continue using traditional technologies such as network file
+%% servers, source control repositories, emails and file servers, they
+%% are also increasingly using cloud based applications
+%% ~\cite{salesforce, office365} and enterprise social
+%% networks~\cite{EnterpriseSN} to conduct their work. The tremendous
+%% growth rate of enterprise data and the diversity in its locations make
+%% finding relevant content a very challenging task for knowledge
+%% workers.
+
+In this paper, we present a system that assists knowledge workers to
+\textit{discover} relevant content by providing personalized
+recommendations.  In order to serve these recommendations, our system
+monitors user activity over a training period and trains per-user
+access models.  Although our approach currently focuses on files on
+networked file servers (shares), it could potentially be applied to other types
+of data as well.  For training user models, we extract interesting
+metadata features based on file path and hierarchical directory
+structure.  In our experiments, we observe that many enterprise users
+show a high degree of collaboration, which is inferred based on their
+common file accesses.  To leverage user collaboration, we propose a
+collaborative filtering aware modeling approach that provides
+significant improvement over metadata-based models.  Our evaluation
+uses activity logs from eight different shares of an enterprise
+customer.  We measure the effectiveness of our system in providing
+predictions for files that are new with respect to the training data.
+Our experiments show that the metadata-based models can achieve an
+average F-score of nearly 50\% at 75\% precision across all shares and users.
+Our collaborative filtering-based approach remarkably improves the
+same F-score to over 70\%.
+
+Although effective, per user models are not at all efficient in terms
+of the runtime performance of testing.  This is because every file
+that is created or modified in a share needs to be tested against the
+model of each user in the share.  This could be computationally very expensive
+especially for heavy workloads with a large number of users.  For
+instance, for handling a heavy workload (i.e., activity
+involving high file edit rate) in our experiments, our system will
+need 48 64-core machines to test all edited files.  The high computational and financial cost poses a severe
+constraint that could adversely affect the adoption of our system.  To
+address this issue, we propose a novel technique, called Active
+Features-based Model Selection (AFMS), that automatically selects only
+those user models that are highly likely to generate positive
+predictions, while ignoring the models that will definitely or most likely generate
+negative predictions.  Thus using this technique, a test file is
+tested against only the selected models, thereby speeding up the
+overall testing time.  Our experiments show that AFMS drastically
+reduces testing time without any loss in the prediction accuracy.
+Furthermore, we show that AFMS can be used adaptively to trade-off
+marginal prediction accuracy for significant performance gains during
+the periods of heavy workload.
+
+
+Our previous version~\cite{dwiticeis15} of this work presented the
+basic technique for modeling file accesses.  This paper presents a
+new technique, AFMS, for improving solubility, along with new
+experiments and insights.  The main contributions of our work are the
+following:
+\begin{enumerate}
+\item Propose a system to analyze user file accesses in order to train
+  personalized models, and recommend relevant content with a high
+  degree of accuracy
+\item Propose a novel model selection technique that can speed up the
+  testing time by more than 6 times on average, and by over 23 times in the best case
+  without any loss in the prediction accuracy
+\item Extend the model selection technique to speed up the testing time
+  significantly at the cost of marginal loss in the prediction accuracy
+\item Demonstrate practicality of our system using a systematic study
+  and evaluation based on real world enterprise data
+\end{enumerate}
+
+%%
+%%  The justification for 24 64-core machines needed
+%%  What is the constriant un latency of prediction?
+%%
+%% In this paper we present a system that assists knowledge workers to \textit{discover} relevant content by providing personalized
+%% recommendations. In order to serve the recommendations, our system
+%% monitors user activity over a training period and trains per user
+%% access models. We focus on files on networked file servers and use a novel tokenization approach to extract metadata based features from files that enable the training of user models. In addition to modeling user access patterns using the file metadata, we note that enterprise users demonstrate a high degree of collaboration with respect to
+%% common files. Thus we also propose a collaborative filtering aware modeling approach that can leverage the user collaboration and can improve the performance of our system over that of metadata based models. 
+%% We provide evaluation of the system by using activity logs from eight shares of an enterprise customer. Since the system is designed to recommend new content to users, we ensure that the test data comprises of files that are new with respect to the training data. Our experiments reveal that the metadata based models can achieve average F-score of over 90\% and average recall of over 93\% for 75\% precision. In addition, user collaboration in enterprise shares can be leveraged to get average F score of over 99\% and average recall of over 99\% for 75\% precision. 
+%
+%In particular, the system is designed for files on networked file servers. File servers are used by enterprises for several purposes such as storing application specific data, facilitating collaboration among users, backing up data, and hosting personal home directories. 
+%
+%
+%
+%
+%In addition to improving productivity of enterprise users, the proposed system can also be used to determine which files to cache on mobile devices in scenarios of intermittent connectivity. Alternatively, it can be used to reduce network latency in cloud services by caching files on client-facing web servers or directly on clients.
+
+
+%% While the evaluation demonstrates feasibility of using our system to provide recommendations with high predictive correctness, the per user modeling used in our system inhibits its scalability to large shares. Specifically, for every created or modified file in a share, the models corresponding to each user in the share need to be applied. As a result of this, the computational requirement during testing can be substantial. As an example, for a populated share experiencing high file edit rate, our system may need 24 64-core machines on average for testing. This places severe computational and financial requirements on enterprises that adopt our system to help its knowledge workers discover relevant content and may even make deploying our system infeasible for large shares. 
+
+%Practical insights are provided relating the system performance with training duration for models, separation between training and testing and user workload.
+%While existing file access prediction approaches such as \cite{yeh01-mascots,yeh01-ispass} fail to provide predictions for new files, 
+%The system, however, necessiates that models are constructed for each user in a share be applied on a created or modified file. As a result, classifying a file has high computational requirement which may prevent our system from scaling to large and active shares. 
+
+%% In order to reduce the high testing computational requirement of our system, we propose a novel Active Features based Model Selection (AFMS) approach that can \textit{select} user models that may recommend a given test file to their corresponding users. Based on this, only the selected models need to be applied on the file, thus reducing its testing time computational requirement. 
+%% We show empirically and verify through experiments that AFMS can reduce the computation per file testing by more
+%% than an order of magnitude without any loss in model correctness. In
+%% addition, we demonstrate that AFMS can reduce the testing complexity by more than two
+%% orders of magnitude with graceful degradation in model
+%% correctness. Furthermore, AFMS can also enable adaptive techniques that can trade off model perdictive correctness for faster processing of files during periods of high file activity in shares. Based on the proposed approach, we show that our system can be
+%% scaled up to shares accessed by large number of users and having high rates of file activity, and can be implemented using only a household machine. 
+
+%% \cite{dwiticeis15} presents a previous version of this work. The
+%% current paper presents new techniques, extensive new
+%% experiments and insights as compared to \cite{dwiticeis15}. The main
+%% contributions of our work are the following: 
+%% \begin{enumerate}
+%% \item Propose a system to analyze user file accesses to train
+%%   personalized models and recommend relevant content
+%% \item Propose a novel model selection approach that
+%%   can reduce the high computational requirement of the system by 5 times on average and by over 20 times at maximum without any loss in predictive correctness 
+%% \item Propose an approach that can lower the testing computational requirement by several orders at the cost of marginal loss in the model predictive correctness
+%% \item Demonstrate viability of proposed approaches using a systematic study and evaluation based on real world enterprise data 
+%% \end{enumerate}
+
+
+\comment{
+Rest of the paper is organized as follows.  \\ 
+\textbf{pending} \\ 
+\textbf{Need to draft differences with ICEIS paper too.}\\ 
+}
+%%%% OLD CONTENT: COMMENTING %%%
+\comment{ 
+Enterprise knowledge workers are inundated with new options for
+conducting their work with the rise of Enterprise Social
+Networks~\cite{EnterpriseSN} and cloud based
+applications~\cite{salesforce, office365} alongside traditional
+technologies such as email, source control repositories, network file
+servers, and office software suites.  Enterprises are also embracing
+new computing devices such as mobile devices and tablets in addition
+to existing personal computers, laptops, workstations and servers.
+The amount of enterprise data grows significantly each year: studies
+estimate that unstructured data grows annually by
+40-50\%~\cite{IDCDataGrowth}.  The fragmentation in the tools and
+devices used to work and the sheer growth of data places increasingly
+unrealistic demands on knowledge workers to keep up with the influx of
+data.  In fact, it has been reported that 65\% of users have felt at
+times overwhelmed by the amount of incoming
+data~\cite{IDGBigDataSurvey14}.
+
+This paper presents a system that utilizes machine learning and
+natural language processing to automate the discovery of important new
+or modified content and identify which subset of users will likely use
+or benefit from it. The system is designed for file servers
+and is evaluated with activity collected over eight network file
+servers from an enterprise customer.  Enterprises use file servers for
+a myriad of purposes including storing application data, back up,
+enabling collaboration, and hosting personal home directories. The
+proposed system will support a wide range of applications, such as
+recommender systems or server cache management systems, by providing
+predictions about what data will likely be accessed in the near
+future.
+
+The system bases its predictions on user activity and content
+metadata.  We track content accessed by users over a specified
+training interval.  Data (i.e. access to a particular piece of
+content) are represented by a set of features that include path
+components (e.g., parent and ancestral directories), keywords in the
+path, and extension.
+% NB - if we remove tokenization details, we should remove this sentence
+%We employ a novel tokenization scheme to extract salient keywords from the
+%metadata because it is common to observe concatenation and uniform case in
+%naming files and folders.  
+Each datum represents an instance in training our model.  Combining
+this training data with the files specifically accessed by the user,
+this system builds personalized models to predict future file
+accesses. While traditional approaches for file access prediction such
+as \cite{yeh01-mascots,yeh01-ispass} cannot be applied to recommend
+new files, the proposed user model based approach is generalizable
+enough to be applied even to content that has not been accessed
+before, or is newly created. Additionally, analysis of file activity
+yields the insight that very regular patterns of collaboration occur.
+The paper demonstrates a method in which an individual's prediction
+precision and recall can be greatly improved by incorporating the
+predictions of all other user models.
+
+This work makes the following contributions:
+\begin{itemize}
+\item Observations about the nature of enterprise file activity
+\item A system that analyzes file activity and metadata and applies
+  machine learning and natural language processing to provide
+  predictions
+%\item A method to tokenize file metadata
+\item A strategy to combine the personalized models of multiple file
+  users to improve the predictions of individual users
+\end{itemize}
+%The paper is organized as follows.  Section~\ref{sec:data} provides observations
+%about file activity data. Section~\ref{sec:features} details the feature space
+%and Section~\ref{sec:models} details the approach to construct and evaluate
+%individual models. Section~\ref{sec:evaluation} evaluates the performance of
+%this model with discussion in Section~\ref{sec:discussion}.  These sections are
+%followed by related work in Section~\ref{sec:relatedwork} and a conclusion in
+%Section~\ref{sec:conclusion}.
+
+%% Redundant with first highlight - MAH
+%% We evaluate the proposed approach over activity data recorded on
+%%   ten network file servers activity data from an enterprise customer.  in the shares corresponds to
+%%   real world data from enterprises. 
+
+The paper is organized as follows. 
+  Section 2 provides observations about file activity and pre-processing.
+  Section 3 details the feature space and
+  Section 4 describes the construction of metadata and collaborative filtering-based user models.
+  Section 5 presents an evaluation of the user models and 
+  Section 6 discusses the contributions and characteristics of the features used
+  in the models, and scalability and deployment related aspects. 
+  Section 7 identifies related work followed by a discussion on directions for future work in Section 8. Section 9 concludes. 
+}
+%%%% OLD CONTENT: COMMENTING %%%  

@@ -1,0 +1,558 @@
+\begin{table}
+\begin{center}
+\caption{Average Tag prediction scores for various approaches to construct semantic graphs on 117 Flickr tags. }
+\label{tab:TPFlickr117Summary}
+%\begin{tabular}{|p{4cm}|p{3.0cm}|}
+\begin{tabular}{|c|c|}
+		\hline
+%		\textbf{Tag Prediction Algorithm} & \textbf{Avg Tag Prediction Score (in \%)}   \\ 
+		\textbf{Tage Prediction} & \textbf{Prediction}\\ 
+		\textbf{Algorithm} & \textbf{Score (\%)}\\ 
+		\hline 
+		 Random tag prediction   & 1.63  \\
+		\hline
+		 WordNet hierarchy~\ref{WordNet_ST_Algo} & 4.92  \\
+		\hline
+%		3 & Minimum spanning tree formed using WordNet distances  & 4.7740  \\
+%		\hline
+%		3 & 2 + Local search using WordNet distances (Needed?) & 7.44  \\
+%		\hline
+%		5 & 3 + Local Search using WordNet distances (Needed?) & 4.2622  \\
+%		\hline
+		 Weighted WordNet hierarchy  & 5.41  \\
+		\hline
+%		7 & 3 + Edge Weights (WordNet Distances)  & 5.1941  \\
+%		\hline
+%		8 & 4 + Edge Weights (WordNet Distances) (Needed?) & Pending  \\
+%		\hline
+%		9 & 5 + Edge Weights (WordNet Distances)  (Needed?) & Pending  \\
+%		\hline
+%		5 & 2 + Edge weights (Inverse of Jaccard Similarity) & 6.9   \\  
+%		\hline
+%		10 & 3 + Edge weights (Inverse of Jaccard Similarity) & ---  \\
+%		\hline
+		 LS on WordNet hierarchy & 28.61  \\
+		\hline
+%		11 & 3 + Local Search using Jaccard Similarity & 18.1985  \\
+%		\hline
+		 (Weighted) LS on WordNet hierarchy   &  35.75  \\
+		\hline
+%		13 & 11 + Edge Weights (Inverse Jaccard Similarity)   & 32.9313  \\
+%		\hline
+%		11 & 8 + Edge Weights (WordNet Distances)   & ---  \\
+%		\hline
+%		12 & 9 + Edge Weights (WordNet Distances)   & ---  \\ 
+%		\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+\begin{table}
+\begin{center}
+\caption{Tag Prediction Accuracy (in \%) for random prediction}
+\label{tab:TPFlickr117Random}
+\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+		\hline
+		{$\boldsymbol{N_{Seen} \rightarrow}$} & &  &  &  &\\ 
+		{$\boldsymbol{\downarrow N_{Tags}}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}   \\ 
+		\hline 		
+		\textbf{2} & 1.15 & - & - & - & -\\ 
+		\hline
+		\textbf{3} & 2.13 & 1.22 & - & - & -\\ 
+		\hline
+		\textbf{4} & 3.02 & 2.10 & 0.88 & - & -\\ 
+		\hline
+		\textbf{5} & 1.86 & 1.72 & 0.94 & 0.39 & -\\ 
+		\hline
+		\textbf{6} & 2.02 & 2.22 & 1.97 & 2.26 & 0.63 \\ 
+		\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+%\begin{table}
+%\begin{center}
+%\caption{Tag Prediction Accuracy for semantic graph constructed using WordNet and Algo. ~\ref{alg:WordNetSTAlgo}}
+%\label{tab:TPFlickr117WordNetST}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 6.93 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 5.51 & 2.29 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 7.40 & 3.74 & 3.74 & - & -\\ 
+%		\hline
+%		\textbf{5} & 10.59 & 4.99 & 4.14 & 0.98 & -\\ 
+%		\hline
+%		\textbf{6} & 8.92 & 5.49 & 4.57 & 3.21 & 1.26 \\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{{Tag Prediction Accuracy for semantic graph constructed as Minimum Spanning Tree using WordNet distances from \cite{RitaLibraryWordNet} } 
+%\label{tab:WordNetRitaMST}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 4.3189 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 2.7787 & 1.6325 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 5.0844 & 3.2037 & 4.1086 & - & -\\ 
+%		\hline
+%		\textbf{5} & 9.1840 & 5.9628 & 5.7673 & 8.4066 & -\\ 
+%		\hline
+%		\textbf{6} & 7.9321 & 4.9647 & 4.1640 & 3.9432 & 0.1577\\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+\begin{table}
+\begin{center}
+\caption{Tag Prediction Accuracy for semantic graph constructed using WordNet and Algorithm~\ref{alg:WordNetSTAlgo}. Edge weights are distances obtained from \cite{RitaLibraryWordNet}}
+\label{tab:TPFlickr117WordnetSTWeightRita}
+\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+		\hline
+		{$\boldsymbol{N_{Seen} \rightarrow}$} & &  &  &  &\\ 
+		{$\boldsymbol{\downarrow N_{Tags}}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}   \\ 	
+		\hline
+		\textbf{2} & 7.08 & - & - & - & -\\ 
+		\hline
+		\textbf{3} & 5.74 & 3.06 & - & - & -\\ 
+		\hline
+		\textbf{4} & 7.25 & 3.30 & 5.21 & - & -\\ 
+		\hline
+		\textbf{5} & 10.48 & 6.13 & 8.96 & 0.68 & -\\ 
+		\hline
+		\textbf{6} & 8.72 & 6.74 & 5.43 & 1.63 & 0.79 \\ 
+		\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{Tag Prediction Accuracy for semantic graph constructed using WordNet and Algo. ~\ref{alg:WordNetSTAlgo}. Edge weights are inverse of Jaccard similarity between joined tags. } 
+%\label{tab:TPFlickr117WordnetSTWeightJacc} 
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 11.03  & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 8.24 & 4.90 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 8.23 & 4.89 & 8.51 & - & -\\ 
+%		\hline
+%		\textbf{5} & 11.08 & 7.68 & 9.38 & 0.88 & -\\ 
+%		\hline
+%		\textbf{6} & 9.29 & 9.10 & 6.09 & 3.42 & 0.95  \\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{{Tag Prediction Accuracy for semantic graph constructed as Minimum Spanning Tree using WordNet distances from \cite{RitaLibraryWordNet} } 
+%\label{tab:MSTRitaWeightRita}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & ??? & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 2.7787 & 1.6325 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 5.0844 & 3.2037 & 4.1086 & - & -\\ 
+%		\hline
+%		\textbf{5} & 9.1840 & 5.9628 & 5.7673 & 8.4066 & -\\ 
+%		\hline
+%		\textbf{6} & 7.9321 & 4.9647 & 4.1640 & 3.9432 & 0.1577\\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+%\begin{table}
+%\begin{center}
+%\caption{Local search using WordNet distances from \cite{RitaLibraryWordNet} and initialized at WordNet spanning tree obtained form Algo. ~\ref{alg:WordNetSTAlgo}. Edge weights =1 } 
+%\label{tab:TPFlickr117GDonRitaWordnetSTinit}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 7.44 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 7.92 & 3.02 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 10.59 & 5.28 & 4.11 & - & -\\ 
+%		\hline
+%		\textbf{5} & 15.44 & 10.03 & 5.62 & 0.49 & -\\ 
+%		\hline
+%		\textbf{6} & 13.78 & 12.18 & 9.88 & 4.81 & 0.95 \\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+%\begin{table}
+%\begin{center}
+%\caption{{Tag Prediction Accuracy for semantic graph constructed as Minimum Spanning Tree using WordNet distances from \cite{RitaLibraryWordNet} } 
+%\label{tab:GDonRitaRitaMSTinit}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 4.3189 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 2.7787 & 1.6325 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 5.0844 & 3.2037 & 4.1086 & - & -\\ 
+%		\hline
+%		\textbf{5} & 9.1840 & 5.9628 & 5.7673 & 8.4066 & -\\ 
+%		\hline
+%		\textbf{6} & 7.9321 & 4.9647 & 4.1640 & 3.9432 & 0.1577\\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{Tag Prediction Accuracy for semantic graph constructed through local search initialized on spanning tree obtained from WordNet using Algo. ~\ref{alg:WordNetSTAlgo}. Edge weights = 1   } 
+%\label{tab:TPFlickr117GDWordNetST}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 13.37 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 10.74 & 6.46 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 14.03 & 12.72 & 14.23 & - & -\\ 
+%		\hline
+%		\textbf{5} & 43.02 & 41.48 & 40.31 & 40.27 & -\\ 
+%		\hline
+%		\textbf{6} & 39.05 & 38.91 & 38.77 & 36.33 & 39.43 \\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{{Tag Prediction Accuracy for semantic graph constructed through local search initialized on Minimum Spanning Tree on WordNet distances from \cite{RitaLibraryWordNet}  } 
+%\label{tab:GDWordNetRitaMST}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 13.3742 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 6.3448 & 3.6124 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 10.6530 & 9.2688 & 8.8775 & - & -\\ 
+%		\hline
+%		\textbf{5} & 26.4153 & 22.4144 & 18.1818 & 19.5503 & -\\ 
+%		\hline
+%		\textbf{6} & 34.3636 & 30.7841 & 27.1293 & 21.5037 & 20.5047\\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+\begin{table}
+\begin{center}
+\caption{Tag Prediction Accuracy for semantic graph constructed through local search initialized on spanning tree obtained from WordNet using Algo. ~\ref{alg:WordNetSTAlgo}. Edge weights are inverse of Jaccard similarity between joined tags. }  
+\label{tab:TPFlickr117GDWordNetSTJaccardWeight}
+\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+		\hline
+		%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+		{$\boldsymbol{N_{Seen} \rightarrow}$} & &  &  &  &\\ 
+		{$\boldsymbol{\downarrow N_{Tags}}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}   \\ 
+		\hline 		
+		\textbf{2} & 18.71 & - & - & - & -\\ 
+		\hline
+		\textbf{3} & 11.59 & 7.54 & - & - & -\\ 
+		\hline
+		\textbf{4} & 17.50 & 14.92 & 18.05 & - & -\\ 
+		\hline
+		\textbf{5} & 48.74 & 46.75 & 46.92 & 45.84 & -\\ 
+		\hline
+		\textbf{6} & 51.62 & 48.94 & 53.01 & 53.21 & 52.84 \\ 
+		\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{{Tag Prediction Accuracy for semantic graph constructed through local search initialized on Minimum Spanning Tree on WordNet distances from \cite{RitaLibraryWordNet}. Edge weights are %jaccard similarity between joined tags.  } 
+%\label{tab:GDWordNetRitaMSTJaccardWeight}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|}
+%		\hline
+%		\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ 
+%		\hline 		
+%		\textbf{2} & 15.9577 & - & - & - & -\\ 
+%		\hline
+%		\textbf{3} & 7.3752 & 3.6471 & - & - & -\\ 
+%		\hline
+%		\textbf{4} & 13.9031 & 12.1546 & 13.7931 & - & -\\ 
+%		\hline
+%		\textbf{5} & 47.4747 & 45.9042 & 45.0961 & 44.4770 & -\\ 
+%		\hline
+%		\textbf{6} & 49.0373 & 47.7407 & 50.4574 & 48.2124 & 48.7382 \\ 
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+
+%\begin{table}
+%\begin{center}
+%\caption{{Average Tag prediction scores for various approaches to construct semantic graphs on 30 Getty tags. }
+%\label{tab:TPGetty30Summary}} 
+%\begin{tabular}{|p{0.5cm}|p{6cm}|p{1.5cm}|}
+%		\hline
+%		\textbf{Expt Num} & \textbf{Tag Prediction Algorithm} & \textbf{Average Tag Prediction Score (in \%)}   \\ 
+%		\hline 
+%		1 & Random prediction   & 11.1429  \\
+%		\hline
+%		2 & WordNet hierarchy connected as per Algo. ~\ref{WordNet_ST_Algo} & 15.5789  \\
+%		\hline
+%		3 & Minimum spanning tree formed using WordNet distances  & 6.7818  \\
+%		\hline
+%		4 & 2 + Local search using WordNet distances (Needed?) & 12.0352  \\
+%		\hline
+%		5 & 3 + Local Search using WordNet distances (Needed?) & 11.0405  \\
+%		\hline
+%		6 & 2 + Edge Weights (WordNet Distances)  & 15.5342  \\
+%		\hline
+%		7 & 3 + Edge Weights (WordNet Distances)  & 7.4982  \\
+%		\hline
+%		8 & 4 + Edge Weights (WordNet Distances) (Needed?) & Pending  \\
+%		\hline
+%		9 & 5 + Edge Weights (WordNet Distances)  (Needed?) & Pending  \\
+%		\hline
+%%		10 & 2 + Edge weights (Inverse of Jaccard Similarity) & 38.4498   \\ %why :'( 
+%%		\hline
+%%		10 & 3 + Edge weights (Inverse of Jaccard Similarity) & ---  \\
+%%		\hline
+%		10 & 2 + Local Search using Jaccard Similarity & 21.0657  \\
+%		\hline
+%		11 & 3 + Local Search using Jaccard Similarity & 16.6283  \\
+%		\hline
+%		12 & 10 + Edge Weights (Inverse Jaccard Similarity)   & 38.4619  \\
+%		\hline
+%		13 & 11 + Edge Weights (Inverse Jaccard Similarity)   & 18.6237  \\
+%		\hline
+%%		11 & 8 + Edge Weights (WordNet Distances)   & ---  \\
+%%		\hline
+%%		12 & 9 + Edge Weights (WordNet Distances)   & ---  \\ 
+%%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ Random tag prediction}  
+%\label{tab:TPGetty30Random}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  %& \textbf{7}  & \textbf{8}  & \textbf{9} \\ \hline
+%2 & 1.6752 & ---  & ---  & ---  & ---  & ---  & ---  & ---  & --- \\ \hline 
+%3 & 2.7387 & 2.1622 & ---  & ---  & ---  & ---  & ---  & ---  & ---\\  \hline
+%4 & 4.4124 & 4.3825 & 2.3904 & ---  & ---  & ---  & ---  & ---  & --- \\ \hline
+%5 & 7.7453 & 6.3239 & 5.9519 & 2.0131 & ---  & ---  & ---  & ---  & --- \\ \hline
+%6 & 11.4658 & 10.5105 & 9.3536 & 8.3297 & 1.4317 & ---  & ---  & ---  & --- \\ \hline
+%7 & 17.5299 & 14.7225 & 12.9405 & 10.6218 & 9.6729 & 1.5228 & ---  & ---  & --- \\ \hline
+%8 & 23.1863 & 19.518 & 16.117 & 13.3996 & 11.2664 & 10.7632 & 1.6355 & ---  & --- \\ \hline
+%9 & 22.3432 & 21.4285 & 19.0216 & 15.8333 & 12.7433 & 10.5678 & 9.3785 & 3.3898 & --- \\ \hline
+%10 & 24.6614 & 22.6259 & 21.5193 & 18.6272 & 16.218 & 12.5128 & 10.6628 & 11.0461 & 5.0682 \\
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ WordNet hierarchy. Edge weights =1 }  
+%\label{tab:TPGetty30WordnetST}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  & \textbf{7}  & \textbf{8}  & \textbf{9} \\ %\hline
+%2 & 3.496 & ---  & ---  & ---  & ---  & ---  & ---  & ---  & ---  \\ \hline
+%3 & 6.3243 & 3.6757 & ---  & ---  & ---  & ---  & ---  & ---  & ---  \\ \hline
+%4 & 8.0627 & 7.3373 & 3.4861 & ---  & ---  & ---  & ---  & ---  & ---  \\ \hline
+%5 & 11.4382 & 11.3654 & 9.3071 & 8.9278 & ---  & ---  & ---  & ---  & ---  \\ \hline
+%6 & 17.4211 & 17.1528 & 13.8612 & 12.2632 & 8.5033 & ---  & ---  & ---  & ---  \\ \hline
+%7 & 19.7473 & 20.3556 & 18.1412 & 17.5635 & 13.2262 & 16.4975 & ---  & ---  & ---  \\ \hline
+%8 & 20.9498 & 22.9543 & 20.5836 & 20.0757 & 18.472 & 16.2928 & 12.0093 & ---  & ---  \\ \hline
+%9 & 23.3183 & 23.666 & 22.0456 & 20.8612 & 18.6998 & 17.7458 & 14.2373 & 15.5085 & ---  \\ \hline
+%10 & 24.083 & 24.2931 & 21.812 & 20.5789 & 18.8264 & 18.4238 & 14.1326 & 12.2157 & 11.1111 \\
+%		\hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+
+
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ WordNet hierarchy. Edge weights are WordNet distances from \cite{RitaLibraryWordNet}}  
+%\label{tab:TPGetty30WordnetSTRitaWeigh}}
+%%\begin{tabular}{|c|c|c|c|c|}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  & \textbf{7}  & \textbf{8}  & \textbf{9} \\ %\hline
+%2 & 1.6752 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%3 & 5.5315 & 5.2973 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%4 & 8.5657 & 7.7523 & 3.5359 &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%5 & 13.2321 & 11.4048 & 9.8468 & 7.6586 &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%6 & 18.4371 & 14.9472 & 14.0954 & 12.5813 & 9.9783 &  ---  &  ---  &  ---  &  --- \\ \hline
+%7 & 20.7112 & 18.0027 & 18.4167 & 16.0702 & 14.9605 & 13.4941 &  ---  &  ---  &  --- \\ \hline
+%8 & 23.6057 & 21.5729 & 21.0965 & 20.0601 & 18.3364 & 17.0872 & 12.8037 &  ---  &  --- \\ \hline
+%9 & 24.6407 & 22.4503 & 21.2704 & 20.7375 & 18.6045 & 17.6695 & 16.9492 & 17.5424 &  --- \\ \hline
+%10 & 24.9103 & 22.3379 & 20.6605 & 19.7938 & 17.2584 & 16.5506 & 13.8402 & 13.3203 & 9.7466 \\ \hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ WordNet hierarchy. Edge weights are inverse of jaccard similarity }  
+%\label{tab:TPGetty30WordnetSTJaccWeigh}}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$  $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  %& \textbf{7}  & \textbf{8}  & \textbf{9} \\ \hline
+%2 & 7.866 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%3 & 11.009 & 9.2432 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%4 & 14.4273 & 16.8493 & 16.4343 &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%5 & 26.0623 & 24.7571 & 25.6163 & 22.1007 &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%6 & 36.6226 & 35.6128 & 34.3731 & 33.7238 & 35.0542 &  ---  &  ---  &  ---  &  --- \\ \hline
+%7 & 47.8001 & 47.9706 & 47.6231 & 45.4822 & 46.0801 & 47.2927 &  ---  &  ---  &  --- \\ \hline
+%8 & 49.8198 & 50.255 & 50.8637 & 50.0966 & 49.2897 & 51.028 & 52.9439 &  ---  &  --- \\ \hline
+%9 & 43.1965 & 45.2242 & 45.0861 & 46.5735 & 44.8894 & 45.5 & 44.5763 & 52.6271 &  --- \\ \hline
+%10 & 40.0903 & 42.6953 & 41.2055 & 42.8432 & 41.9335 & 40.1003 & 43.2554 & 40.2859 & 43.8596 \\ %\hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+
+
+
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ Local search (using Jaccard similarity) initialized at WordNet hierarchy. Edge weights = 1 }  
+%\label{tab:TPGetty30GDWordnetST}}
+%%\begin{tabular}{|c|c|c|c|c|}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  & \textbf{7}  & \textbf{8}  & \textbf{9} \\ %\hline
+%2 & 7.9388 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  \\ \hline
+%3 & 10.1802 & 7.5676 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  \\ \hline
+%4 & 16.0657 & 13.8446 & 9.8108 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  \\ \hline
+%5 & 18.4099 & 16.3282 & 14.9818 & 9.1028 &  ---  &  ---  &  ---  &  ---  &  ---  \\ \hline
+%6 & 21.8888 & 21.1751 & 21.4187 & 16.6016 & 13.0152 &  ---  &  ---  &  ---  &  ---  \\ \hline
+%7 & 28.3313 & 25.2892 & 23.3692 & 21.2944 & 17.837 & 12.8596 &  ---  &  ---  &  ---  \\ \hline
+%8 & 32.4941 & 30.7628 & 27.8634 & 23.4713 & 21.0794 & 17.9128 & 13.5047 &  ---  &  ---  \\ \hline
+%9 & 31.5436 & 31.9526 & 31.9417 & 27.5763 & 24.414 & 20.4068 & 16.5537 & 11.6102 &  ---  \\ \hline
+%10 & 32.7557 & 31.886 & 31.9642 & 29.4437 & 28.8723 & 25.1054 & 21.4035 & 19.5582 & 16.5692 \\ \hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+
+%\begin{table*}
+%\begin{center}
+%\caption{{ Local search (using Jaccard similarity) initialized at WordNet hierarchy. Edge weights are inverse jaccard similarities between connecting nodes }  
+%\label{tab:TPGetty30GDWordnetSTJaccWeigh}}
+%%\begin{tabular}{|c|c|c|c|c|}
+%\begin{tabular}{|p{2cm}|c|c|c|c|c|c|c|c|c|}
+%		\hline
+%\textbf{$N_{Tags}$, $N_{Seen}$} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5}  & \textbf{6}  & \textbf{7}  & \textbf{8}  & \textbf{9} \\ %\hline
+%2 & 6.7007 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%3 & 10.973 & 9.1351 &  ---  &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%4 & 15.3337 & 17.0485 & 16.5339 &  ---  &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%5 & 26.1294 & 24.3501 & 25.0474 & 23.895 &  ---  &  ---  &  ---  &  ---  &  --- \\ \hline
+%6 & 36.9662 & 35.2798 & 34.295 & 34.5192 & 35.2711 &  ---  &  ---  &  ---  &  --- \\ \hline
+%7 & 47.885 & 47.6921 & 47.1626 & 45.5076 & 45.5866 & 47.5888 &  ---  &  ---  &  --- \\ \hline
+%8 & 49.9758 & 50.7692 & 49.9522 & 50.2283 & 49.7336 & 50.0156 & 53.4112 &  ---  &  --- \\ \hline
+%9 & 43.4125 & 44.6481 & 45.5479 & 46.2436 & 44.6207 & 45.839 & 45.1412 & 49.9153 &  --- \\ \hline
+%10 & 39.629 & 43.5739 & 41.0729 & 42.3482 & 42.5323 & 40.4715 & 41.7349 & 42.0403 & 45.0292 \\ \hline
+%\end{tabular}
+%\end{center}
+%\end{table*}
+
+
+
+
+
+
+
+
