@@ -1,7 +1,7 @@
-\section{Conclusion}
+\section{Conclusions}
 \label{sec:conclusion}
 
-This paper presents a system to assist knowledge workers in
+This chapter presents a system to assist knowledge workers in
 discovering useful new or modified content.  The system builds
 personalized user models using features derived from file metadata and
 user collaboration.  Our experiments showed that the basic modeling
@@ -29,84 +29,12 @@ that capture producer-consumer relationship between users.
 %% Lastly, directed \textit{producer-consumer} relationships between users may be infered from past activity that can recommend content to a user (consumer) if it is created by other user (producer). 
 
 
-%%% COMMENTED -- OLD CONTENT 
-\comment{
-
-\section{\uppercase{Future work}}
-\label{sec:futurework}
 
 
+\section{Acknowledgements}
+\label{sec:ack}
+We thank the anonymous ICEIS 2015 and IEEE Access reviewers for their feedback and comments on the work. We are thankful to the researchers at Symantec Research Labs for their insightful discussions and comments on the work from an early stage. The research was primarily conducted when the dissertation author was an intern at Symantec Research Labs. 
 
+Chapter 4, in part, contains material as it appears in the Proceedings of the 17th International Conference on Enterprise Information Systems (ICEIS '15). ``Access Prediction for Knowledge Workers in Enterprise Data Repositories''. Chetan Verma, Sandeep Bhatkar, Michael Hart, Aleatha Parker-Wood, Sujit Dey. The dissertation author was the primary investigator and author of this paper. 
 
-The metadata features show a high degree of sparsity as is typical for
-datasets of this size and scope. A file typically has very few
-keywords in its path, and thus most of its token features would be
-zero. Similarly, very few of its folder features, and at the maximum
-of one extension feature of a file are non-zero.
-
-While sparsity can be helpful for training user
-models~{\cite{ngiam2011sparse}}, the large dimensionality of data may
-negatively affect the performance of the models. It is possible that
-the correctness and speed of the proposed system can be further
-improved by capturing the interdependence between different features
-through dimensionality reduction techniques such as Principal
-Component
-Analysis~\cite{jolliffe2005principal}\cite{van2009dimensionality}.
-For example the folder features demonstrate substantial
-interdependence and redundancy and techniques to transform them to a
-suitable space may be explored.  A different approach would be to use
-feature hashing \cite{FIXME} to reduce sparsity without detrimental
-effects on performance.
-
-Modeling the file metadata and user features in context of temporal
-nature of file accesses could also be a potential direction for
-further work. For example, giving more importance to recent events
-while training user models may accommodate shifts in user interests,
-leading to improved performance.  Identifying and modeling repetitive
-activity may also be informative since users may be interested in
-similar tasks after fixed time intervals, such as on the same day each
-week.  As mentioned in Section~{\ref{sec:realdeployment}}, deployment
-of the proposed system in an enterprise environment offers an online
-framework to evaluate the trained models. Online model training or
-update techniques can be developed that utilize the model evaluation
-information to improve the trained models by adapting them to new
-access patterns or newly observed features. For example, consider a
-scenario where a trained model is seen to perform poorly because most
-of the recent activity for a user is confined to a recently created
-folder that was not part of the folder features in the trained
-model. Such information can be derived from the online evaluation and
-can be used to update features of the trained model and to adapt the
-model to reflect the updated access patterns.\\
-\indent In addition to training personalized user models, insight into
-directed preferences of users may be useful for recommending
-content. For example if it is determined that user $u_1$ often
-accesses documents created by user $u_2$, then a recent modification
-by $u_2$ may be useful information for $u_1$ and can be used as an
-indicator to recommend relevant content.  \\
-\indent Lastly, file access
-prediction offers interesting possibilities for applications such as
-information security, by offering new measures of access improbability.
-}
-%%% COMMENTED -- OLD CONTENT 
-%%% COMMENTED -- OLD CONTENT 
-\comment{
-This paper presents a system that provides file recommendation to
-assist knowledge workers process increasing volumes of
-data.  The system utilizes natural language processing to derive
-usable information from file metadata, and machine learning to train
-personalized user models that have good predictive value, even for files that 
-have not been observed in the past. Through extensive
-experiments on real world data we demonstrate the feasibility of the
-system to offer high quality recommendations, which is
-reflected particularly in the significant recall at high precision
-across eight shares. We also show that for shares exhibiting a high
-degree of collaboration between its users, the predictions from
-different user models can be combined to improve the performance of an
-individual user's model.  It is observed that the trained models have
-a high temporal longevity, and experience moderate performance
-degradation for short training periods. Since the system
-requires training personalized models for each user under
-consideration, it should be applied only on shares
-and users that display sufficient activity and are determined to be of
-interest.
-}
+Chapter 4, in part, contains material as it has been accepted for publication for the IEEE Access. ``Improving Scalability of Personalized Recommendation Systems for Enterprise Knowledge Workers''. Chetan Verma, Sandeep Bhatkar, Michael Hart, Aleatha Parker-Wood, Sujit Dey. The dissertation author was the primary investigator and author of this paper. 
