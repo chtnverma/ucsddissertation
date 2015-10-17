@@ -62,7 +62,7 @@ Thus, for the proposed approach using objective function (\ref{eq:ObjFnWeightedH
 \hl{Intuitively, using ({\ref{eq:ObjFnSimApprox}}) as the objective function minimizes the weighted L1 norm of the difference between pair-wise jaccard similarity and the similarity estimated using a tag tree, thus trying to approximate the normalized symmetric second order statistics of a corpus using a tree on the set of tags}. We have chosen weighted L1 norm since it was observed to lead to the best results across different corpora among other variants such as L1, L2 and weighted L2 norm. Implementation of the similarity estimated using a tag tree (\ref{eq:ProdSimSimilarityCalculate}) can be conveniently done by using Logarithms and Ford Fulkerson Algorithm~\cite{ford2010flows}. Also, since the LS-SA approximates the pair-wise similarities $J_{\mathcal{T}}(i,j)$ in $O(N)$ as compared to $O(N^2)$, approaches such as {\cite{sigurbjornsson2008flickr}} that utilize $J_{\mathcal{T}}(i,j)$ lead to equal or only marginally better performance, despite having several orders higher space requirement. \\
 
 
-\section{Conclusions and Future Work}
+\section{Summary}
 
 In this section we summarize the research contributions of this chapter, key practical insights, and advantages and limitations as compared to existing expert systems. We also discuss limitations of our work, and provide several suggestions for future research directions. 
 
