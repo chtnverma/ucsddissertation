@@ -195,7 +195,7 @@ The Overall Tag Prediction Accuracies for the various methods compared are shown
 %\includegraphics[width=\linewidth]{FlickrTPFig_journal}
 \centering
 \includegraphics[width=0.65\linewidth]{TagTree/TPFlickr_rebuttal}
-\caption{\hl{Average Tag Prediction Accuracies marginalized over $N_{Tags}$ for various methods for the tag prediction task on Flickr corpus. Note that Google Distance refers to the method corresponding to Google Similarity Distance as outlined in }Section \ref{sec:comparison}.} 
+\caption[Average Tag Prediction Accuracies marginalized over $N_{Tags}$ for various methods for the tag prediction task on Flickr corpus. ]{Average Tag Prediction Accuracies marginalized over $N_{Tags}$ for various methods for the tag prediction task on Flickr corpus. Note that Google Distance refers to the method corresponding to Google Similarity Distance as outlined in Section \ref{sec:comparison}.} 
 \label{fig:FWS117TagPredGraph}
 \end{figure}
 \begin{table}
@@ -514,7 +514,7 @@ Note that if $N_{Tags}$ is kept constant, increasing $N_{Seen}$ reduces the numb
 		\hline 		
 		\textbf{2} & 7.2&-&-&-&-&-&-&-&- \\
 		\hline
-		\textbf{3} & 13.38&11.1&-&-&-&-&-&-&- \\ 
+		\textbf{3} & 13.4&11.1&-&-&-&-&-&-&- \\ 
 		\hline
 		\textbf{4} & 28.4&27&21.1&-&-&-&-&-&- \\
 		\hline
@@ -683,9 +683,7 @@ We provide an analysis of the robustness of the proposed approach for constructi
 %\includegraphics[width=\linewidth]{VaryFWSorNoisewithGWSTPAccVary}
 \centering
 \includegraphics[width=0.65\linewidth]{TagTree/journal_RobustnessFig}
-\caption{Overall Tag Prediction Score (in \%) obtained by proposed approach in Section~\ref{sec:TagPredUsingGraph}. The training set used to construct an ontological tag tree is formed by using certain number of stock images, with A) Flickr images, or B) noisy images, or C) none. Testing of the constructed tag tree is done on images of stock photos only. For comparison, the Overall Tag Prediction Accuracies for Random method, and WordNet method (as outlined in Section~\ref{sec:comparison}) are also provided. 
-%A) 0.8\% (i.e., 800 in number) of stock images with the rest noisy images gives performance of 31.4\% as compared to 40.2\% when there are no noisy images while training. B) 0.8\% of stock images with the rest Flickr images in training set gives a performance of 23.1\%. C) Only 800 stock images with neither Flickr nor noisy images gives a performance of 36.7\%. 
-} 
+\caption[Robustness analysis using Overall Tag Prediction Score (in \%) obtained by proposed approach in Section~\ref{sec:TagPredUsingGraph}. ]{Overall Tag Prediction Score (in \%) obtained by proposed approach in Section~\ref{sec:TagPredUsingGraph}. The training set used to construct an ontological tag tree is formed by using certain number of stock images, with A) Flickr images, or B) noisy images, or C) none. Testing of the constructed tag tree is done on images of stock photos only. For comparison, the Overall Tag Prediction Accuracies for Random method, and WordNet method (as outlined in Section~\ref{sec:comparison}) are also provided. } 
 %\vspace{-5mm}
 \label{fig:AddNoiseTrainingData}
 \end{figure}
@@ -757,7 +755,7 @@ In this section, we study the effect of size of training set on construction of 
                 \caption{\textbf{Seen}: concert, england\\ \textbf{Unseen}: london, music, uk }
                 \label{fig:posex5}
         \end{subfigure}
-        \caption{Example images where LS-SA method gave 100\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. The Flickr owner and photo ids of these images are (dougtone@7975042008) ,  (elchupacabra@7023118527) , (jeffwilcox@159730021) , (daquellamanera@4678084101) , (martinrp@3832812191)  respectively. } \label{fig:positiveExs}
+        \caption[Example images where LS-SA method gave 100\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. ]{Example images where LS-SA method gave 100\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. The Flickr owner and photo ids of these images are (dougtone@7975042008) ,  (elchupacabra@7023118527) , (jeffwilcox@159730021) , (daquellamanera@4678084101) , (martinrp@3832812191)  respectively. } \label{fig:positiveExs}
 \end{figure*}
 
 \begin{figure*}
@@ -802,6 +800,6 @@ In this section, we study the effect of size of training set on construction of 
                 \caption{\textbf{Seen}: car, green \\ \textbf{Unseen}: photo, washington, white \\ \textbf{Predicted}: red, spring, nature }
                 \label{fig:negex5}
         \end{subfigure}
-        \caption{Example images where LS-SA method gave 0\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. Also provided are the tags that were predicted by the LS-SA method. The Flickr owner and photo ids of these images
+        \caption[Example images where LS-SA method gave 0\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. ]{Example images where LS-SA method gave 0\% tag prediction accuracy when the first two tags were seen and the next three were unseen and predicted. Also provided are the tags that were predicted by the LS-SA method. The Flickr owner and photo ids of these images
 are (king-edward@4061393892) , (familymwr@4928996212) , (alejandroerickson@7730525250) , (wwarby@5145467790) ,  (1968-dodge-charger@5507716438)  respectively. \textbf{Seen: ($\mathcal{T}_{i,Seen}$); Unseen: ($\mathcal{T}_i \setminus  \mathcal{T}_{i,Seen}$); Predicted: ($\mathbb{P}_i$)} as per Section~\ref{subsec:TagPred}. }  \label{fig:negativeExs}
 \end{figure*}

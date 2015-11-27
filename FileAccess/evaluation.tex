@@ -8,6 +8,7 @@ This section describes the evaluation data and methodology.
 \label{sec:data}
 \begin{table*}[!htpb]
 \centering
+\caption{Statistics of shares used for evaluation } 
 {\fontsize{8pt}{1em}\selectfont
 %\begin{tabular}{|p{0.5cm}|p{1.28cm}|r|p{1.15cm}|p{1.1cm}|p{1.4cm}|}
   %\begin{tabular}{|>{\centering}p{0.8cm}|r|r|>{\centering}p{2.7cm}|>{\centering}p{2.3cm}|r|}
@@ -25,8 +26,6 @@ F & 66 & 937 & 6,911 & 4M &0.4 \\ \hline
 G & 66 & 198 & 334 & 14K  & 3K \\ \hline
 H & 57 & 398 & 133,006 & 4M  &45\\  \hline
 \end{tabular}
-\caption{Statistics of shares used for evaluation 
-} 
 \label{tab:datasetstats1}
 }
 \end{table*}
@@ -42,7 +41,8 @@ H & 57 & 398 & 133,006 & 4M  &45\\  \hline
 (a) Share B & (b) Share D \\ 
 \end{tabular}
 %%
-\caption{Social network graphs for shares show that users collaborate
+\caption[Social network graphs for shares show that users collaborate
+  and tend to form communities by accessing common files. ]{Social network graphs for shares show that users collaborate
   and tend to form communities by accessing common files.  In these
   graphs, each node corresponds to a user, and an edge connects two users
   when the Jaccard index of common files accessed by those users is
@@ -227,6 +227,10 @@ the linear SVM models by varying $C$ over {$\{10^{-2}, 10^{-1}, 1,
 \begin{table*}[t!]
 {\fontsize{8pt}{1em}\selectfont
 \begin{center}
+\caption{Performance summary for metadata models.  Performance
+  numbers are averaged over 5 iterations with random
+  initialization of the linear SVM model training. Numbers are listed
+  along with the standard deviations. }
 %\begin{tabular}{|p{0.6cm}|@{\hspace{0.05in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|>{\raggedleft}p{1.2cm}|}
 \begin{tabular}{|c|r|r|r|r|r|}
 		\hline
@@ -245,16 +249,16 @@ H&\textbf{47.6}$\pm$0.0&\textbf{50.2}$\pm$0.0&\textbf{49.9}$\pm$0.0&\textbf{53.0
 \end{tabular}
 \end{center}
 %\vspace{-0.35in}
-\caption{Performance summary for metadata models.  Performance
-  numbers are averaged over 5 iterations with random
-  initialization of the linear SVM model training. Numbers are listed
-  along with the standard deviations. }
 \label{tab:WithoutBurstsPerf} % Note: these are latest. -2/26/15
 }
 \end{table*}
 \begin{table*}[t!]
 {\fontsize{8pt}{1em}\selectfont
 \begin{center}
+\caption{Performance summary for CF models. Performance
+  numbers are averaged over 5 iterations with random
+  initialization of the linear SVM model training. Numbers are listed
+  along with the standard deviations.}
 %\begin{tabular}{|p{0.6cm}|@{\hspace{0.05in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|@{\hspace{0.03in}}p{1.2cm}|>{\raggedleft}p{1.2cm}|}
 \begin{tabular}{|c|r|r|r|r|r|}
 		\hline
@@ -274,10 +278,7 @@ H&\textbf{47.6}$\pm$0.0&\textbf{57.2}$\pm$0.0&\textbf{49.6}$\pm$0.0&\textbf{66.5
 \end{center}
 }
 %\vspace{-0.1in}
-\caption{Performance summary for CF models. Performance
-  numbers are averaged over 5 iterations with random
-  initialization of the linear SVM model training. Numbers are listed
-  along with the standard deviations.}
+
 \label{tab:CollabFilteringPerf}  % Note: these are latest. -2/26/15 
 \end{table*}
 
@@ -321,16 +322,16 @@ because the performance of its metadata model is already too high.
 %\vspace{-0.8cm}
 \begin{figure*}
 \centering
-\begin{minipage}{.48\textwidth}
+\begin{minipage}{.95\textwidth}
   \centering
-  \includegraphics[width=0.95\linewidth]{FileAccess/figs/VaryTrainFScore10}
+  \includegraphics[width=0.65\linewidth]{FileAccess/figs/VaryTrainFScore10}
   \captionof{figure}{AF for metadata models with the fixed testing and varying training periods} 
   \label{fig:varytrainFscore}
 %\vspace{-0.5cm}
 \end{minipage} % 
-\begin{minipage}{.48\textwidth}
+\begin{minipage}{.95\textwidth}
   \centering
-  \includegraphics[width=0.95\linewidth]{FileAccess/figs/VaryTrainR7510}
+  \includegraphics[width=0.65\linewidth]{FileAccess/figs/VaryTrainR7510}
   \captionof{figure}{AR@75P for metadata models with the fixed
     testing and varying training periods}
   \label{fig:varytrainR75}
@@ -338,19 +339,20 @@ because the performance of its metadata model is already too high.
 \end{minipage}
 \end{figure*}
 %\vspace{-0.6cm}
+
 \begin{figure*}
 \centering
-\begin{minipage}{.48\textwidth}
+\begin{minipage}{.95\textwidth}
   \centering
-  \includegraphics[width=0.95\linewidth]{FileAccess/figs/VaryTestFScore10}
+  \includegraphics[width=0.65\linewidth]{FileAccess/figs/VaryTestFScore10}
   \captionof{figure}{AF for metadata models with the fixed 
     training and varying test periods}
   \label{fig:varytestFscore}
 %\vspace{-0.2cm}
 \end{minipage} %
-\begin{minipage}{.48\textwidth}
+\begin{minipage}{.95\textwidth}
   \centering
-  \includegraphics[width=0.95\linewidth]{FileAccess/figs/VaryTestR7510}
+  \includegraphics[width=0.65\linewidth]{FileAccess/figs/VaryTestR7510}
   \captionof{figure}{AR@75P for metadata models with the fixed
     training and varying test periods}
   \label{fig:varytestR75}

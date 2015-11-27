@@ -56,6 +56,9 @@ happens quite often (refer Table~\ref{tab:SpeedupPotentialStats}):
 \begin{center}
 %\begin{tabular}{|>{\centering}p{0.065\linewidth}|>{\centering}p{0.2\linewidth}|>{\centering}p{0.25\linewidth}|>{\centering}p{0.2\linewidth}|>{\centering}p{0.23\linewidth}|}
 %  \hline
+\caption{ Statistics for metadata models, averaged across 30 evaluation users and
+  different training periods (Section~\ref{sec:varytraintest}), showing how
+  AFMS is effective.}
 \begin{tabular}{|c|r|r|r|r|}
   \hline
 
@@ -77,9 +80,7 @@ H & 100.0 & 0.01 & 4.1 & 4.1  \tabularnewline  \hline
 \end{center}
 }
 \vspace{-0.1in}
-\caption{ Statistics for metadata models, averaged across 30 evaluation users and
-  different training periods (Section~\ref{sec:varytraintest}), showing how
-  AFMS is effective.}
+
 \label{tab:SpeedupPotentialStats}
 \end{table*}
 The favorable statistics result in matching the conditions quite
@@ -265,16 +266,16 @@ time.
 
 
 \begin{figure*}
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/gains_thresh.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/gains_thresh.eps}
 
 \captionof{figure}{Speed-up vs. $\tau$ for metadata models}
 \label{fig:gainvsThreshMeta}
 \end{minipage}
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/gains_with_threshCF.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/gains_with_threshCF.eps}
 
 \captionof{figure}{Speed-up vs. $\tau$ for CF models} 
 \label{fig:gainvsThreshCF}
@@ -335,30 +336,30 @@ For CF models, $\tau=0$ leads to average speed-up of more than 6 times and $\tau
 }
 % Metadata models 
 \begin{figure*}[htb!]
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/precisions_thresh.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/precisions_thresh.eps}
 %\vspace{-0.15in}
 \captionof{figure}{Precision vs. $\tau$ for metadata models}
 \label{fig:precisionvsThreshMeta}
 \end{minipage}
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/recalls_thresh.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/recalls_thresh.eps}
 %\vspace{-0.15in}
 \captionof{figure}{Recall vs. $\tau$ for metadata models} 
 \label{fig:recallvsThreshMeta}
 \end{minipage}
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/fscore_thresh.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/fscore_thresh.eps}
 %\vspace{-0.15in}
 \captionof{figure}{F-score vs. $\tau$ for metadata models}
 \label{fig:fscorevsThreshMeta}
 \end{minipage}
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/r75p_thresh.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/r75p_thresh.eps}
 %\vspace{-0.15in}
 \captionof{figure}{Recall@75\%Precision vs. $\tau$ for metadata models} 
 \label{fig:r75pvsThreshMeta}
@@ -369,30 +370,30 @@ For CF models, $\tau=0$ leads to average speed-up of more than 6 times and $\tau
 
 % CF models variations with threshold: 
 \begin{figure*}[htb!]
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/precision_with_threshCF.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/precision_with_threshCF.eps}
 %\vspace{-0.1in}
 \captionof{figure}{Precision vs. $\tau$ for CF models}
 \label{fig:precisionvsThreshCF}
 \end{minipage} 
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/recalls_with_threshCF.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/recalls_with_threshCF.eps}
 %\vspace{-0.1in}
 \captionof{figure}{Recall vs. $\tau$ for CF models} 
 \label{fig:recallvsThreshCF}
 \end{minipage} 
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/fscores_with_threshCF.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/fscores_with_threshCF.eps}
 %\vspace{-0.1in}
 \captionof{figure}{F-score vs. $\tau$ for CF models}
 \label{fig:fscorevsThreshCF}
 \end{minipage} 
-\begin{minipage}{.49\textwidth}
+\begin{minipage}{.95\textwidth}
 \centering
-\epsfig{width=0.95\linewidth,figure=FileAccess/figs/r75p_with_threshCF.eps}
+\epsfig{width=0.65\linewidth,figure=FileAccess/figs/r75p_with_threshCF.eps}
 %\vspace{-0.1in}
 \captionof{figure}{Recall@75\%Precision vs. $\tau$ for CF models} 
 \label{fig:r75pvsThreshCF}

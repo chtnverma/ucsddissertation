@@ -14,37 +14,40 @@ Several methods have been proposed to address the sparsity of tags associated wi
 
 \section{Discussion}
 \label{sec:Discussion}
-\begin{figure*}[t!]
+\begin{figure}[t!]
 \centering
-\minipage{0.49\textwidth}
+%\minipage{0.49\textwidth}
 \centering
-  \includegraphics[width=\linewidth]{TagTree/RebuttalNIterationsWithTauNew} 
+  \includegraphics[width=0.65\linewidth]{TagTree/RebuttalNIterationsWithTauNew} 
 %  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTau}
   \caption{Variation of number of iterations with $\tau$}
   \label{fig:TauNIterations}
 %\end{centering}
-\endminipage %\hfill
-\minipage{0.49\textwidth}
-  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTauNew}
+%\endminipage %\hfill
+%\minipage{0.49\textwidth}
+  \includegraphics[width=0.65\linewidth]{TagTree/RebuttalNCandidatesWithTauNew}
   \caption{Variation of number of candidate neighbors with $\tau$}
   \label{fig:TauNCandidate}
-\endminipage %\hfill
-\end{figure*} 
-\begin{figure*}[t!]
-\minipage{0.49\textwidth}
+%\endminipage %\hfill
+\end{figure} 
+
+
+\begin{figure}[t!]
+\centering
+%\minipage{0.49\textwidth}
 %  \includegraphics[width=\linewidth]{TagTree/RebuttalNCandidatesWithTau}
-  \includegraphics[width=\linewidth]{TagTree/TimeNIterationsWithTau}
+  \includegraphics[width=0.65\linewidth]{TagTree/TimeNIterationsWithTau}
   \caption{Variation of time (hours) taken by local search to converge}
   \label{fig:TauTimetaken}
-\endminipage %\hfill
+%\endminipage %\hfill
 %\vspace{0.1in}
-\minipage{0.49\textwidth}%
-  \includegraphics[width=\linewidth]{TagTree/RebuttalAccuracyWithTauNew}
+%\minipage{0.49\textwidth}%
+  \includegraphics[width=0.65\linewidth]{TagTree/RebuttalAccuracyWithTauNew}
 %  \includegraphics[width=\linewidth]{RebuttalNCandidatesWithTau}
   \caption{Variation of the Average Tag Prediction Accuracy with $\tau$}
   \label{fig:TauAccuracy}
-\endminipage
-\end{figure*}
+%\endminipage
+\end{figure}
 
 In this section, we provide a discussion on the key insights and observations made during the course of study on ontological tag trees. \\
 \indent As outlined in Section~\ref{sec:ConstructionTree}, the motivation for the objective function (\ref{eq:ObjFnWeightedHops})  in the proposed approach is that in order to get a lower value for (\ref{eq:ObjFnWeightedHops}), it is more important to separate the tags $t_i$ and $t_j$ having high $J_{\mathcal{T}}(i,j)$ with less number of hops, as compared to the tags with low $J_{\mathcal{T}}(i,j)$. However, separating the latter set of tags by fewer hops would also lower the value of  (\ref{eq:ObjFnWeightedHops}). Since (\ref{eq:ObjFnWeightedHops}) attempts to minimize the weighted number of hops between tag pairs, a local search in the space of all possible trees on $\mathcal{T}$ would lead to connecting most tags to a central tag, thus forming a star graph. Such a minimum weighted hops spanning tree problem on an all connected graph can be solved in polynomial time using Gomory-Hu trees~\cite{panigrahi2008gomory}, however star graphs need not reflect the true relationship between tags in a corpus. In order to ensure that the proposed approach does not induce artificial structures because of bias of the objective function, we constrain the search space to be spanning trees of a suitably constructed Similarity Graph with the help of a threshold $\tau$, as outlined in Section~\ref{sec:refinement}. Experimentally, constraining as above does succeed in ensuring that we do not get a star graph. However upon visual inspection, the proposed approach yields star subtrees connected through their centers.
